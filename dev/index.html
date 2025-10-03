@@ -318,15 +318,27 @@
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
           <li>
-            <a href="#public-api" class="toc-h1 toc-link" data-title="Public API">Public API</a>
+            <a href="#society-management-app-gateway-api-design" class="toc-h1 toc-link" data-title="Society Management App(Gateway) - API Design">Society Management App(Gateway) - API Design</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#request-structure" class="toc-h2 toc-link" data-title="Request Structure">Request Structure</a>
+                    <a href="#1-enroll-your-society-leads" class="toc-h2 toc-link" data-title="1. Enroll your society (/leads)">1. Enroll your society (<code>/leads</code>)</a>
+                  </li>
+                  <li>
+                    <a href="#2-enroll-a-new-society-internal-api" class="toc-h2 toc-link" data-title="2.  Enroll a New Society (Internal API)">2.  Enroll a New Society (Internal API)</a>
+                  </li>
+                  <li>
+                    <a href="#3-authentication-auth" class="toc-h2 toc-link" data-title="3. Authentication (/auth)">3. Authentication (<code>/auth</code>)</a>
+                  </li>
+                  <li>
+                    <a href="#4-society-amp-people-mangement" class="toc-h2 toc-link" data-title="4. Society &amp; People Mangement">4. Society &amp; People Mangement</a>
+                  </li>
+                  <li>
+                    <a href="#4-1-get-society-details" class="toc-h2 toc-link" data-title="4.1. Get Society Details">4.1. Get Society Details</a>
+                  </li>
+                  <li>
+                    <a href="#5-members-amp-flats-members" class="toc-h2 toc-link" data-title="5. Members &amp; Flats (/members)">5. Members &amp; Flats (<code>/members</code>)</a>
                   </li>
               </ul>
-          </li>
-          <li>
-            <a href="#data-api" class="toc-h1 toc-link" data-title="Data API">Data API</a>
           </li>
       </ul>
         <ul class="toc-footer">
@@ -338,50 +350,270 @@
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Society Docs API! You can utilize our API to access Society API endpoints, which provide information on various operations within our system.</p>
-<h1 id='public-api'>Public API</h1>
-<p><strong>Endpoint URL</strong></p>
+<h1 id='society-management-app-gateway-api-design'>Society Management App(Gateway) - API Design</h1>
+<p><strong>Version:</strong> 1.0.0
+<strong>Base URL:</strong> <code>/api/v1</code></p>
 
-<p><code>API_ENDPOINT_PRODUCTION = https://domain.com</code></p>
-
-<p><code>API_ENDPOINT_STAGING = https://testnet.domain.com</code></p>
-<h2 id='request-structure'>Request Structure</h2>
-<p>All public API requests must be sent to:</p>
-
-<p><strong><code>API_ENDPOINT/api</code></strong></p>
-
-<p>For example:</p>
-
-<ul>
-<li>Production: <code>https://domain.com/api</code></li>
-<li>Staging: <code>https://testnet.domain.com/api</code></li>
-</ul>
-<h3 id='request-format'>Request Format</h3>
-<table><thead>
-<tr>
-<th>Component</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>URL</td>
-<td><code>API_ENDPOINT/api</code></td>
-</tr>
-<tr>
-<td>Method</td>
-<td><code>POST</code></td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td><code>application/json</code></td>
-</tr>
-<tr>
-<td>Body</td>
-<td>JSON-RPC 2.0 formatted request</td>
-</tr>
-</tbody></table>
+<p>This document provides a specification for the REST API. It&#39;s the single source of truth for both frontend and backend development.</p>
 
 <hr>
-<h1 id='data-api'>Data API</h1>
+<h2 id='1-enroll-your-society-leads'>1. Enroll your society (<code>/leads</code>)</h2>
+<p>Manages when the customer comes to our website for enrolling their society or for taking a demo.</p>
+<h3 id='post-leads'><strong>POST</strong> <code>/leads</code></h3>
+<ul>
+<li><strong>Description:</strong> Form for enrolling the society for taking a demo or as a existing user</li>
+<li><strong>Authorization:</strong> None(public).</li>
+<li><strong>Request Body:</strong>
+<code>json
+{
+&quot;name&quot;: &quot;Aditya Mishra&quot;,
+&quot;mobile&quot;: &quot;9876543210&quot;,
+&quot;societyName&quot;: &quot;Prestige Lakeside Habitation&quot;,
+&quot;city&quot;: &quot;Bhopal&quot;,
+&quot;Reason&quot;: &quot;Request a Demo&quot; // or existing user
+}
+</code></li>
+</ul>
+<h2 id='2-enroll-a-new-society-internal-api'>2.  Enroll a New Society (Internal API)</h2>
+<p>This is the API for the form your team will use to onboard a new society after a sales lead is converted.</p>
+<h3 id='post-enrollment'><strong>POST</strong> <code>/enrollment</code></h3>
+<ul>
+<li><strong>Description:</strong> Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.</li>
+<li><strong>Authorization:</strong>  Internal Admin Token required.</li>
+<li><strong>Request Body:</strong>
+<code>json
+{
+&quot;societyName&quot;: &quot;Prestige Lakeside Habitation&quot;,
+&quot;registrationNumber&quot;: &quot;KA-BNG-12345&quot;,
+&quot;address&quot;: &quot;Whitefield Main Road&quot;,
+&quot;adminName&quot;: &quot;Aditya Mishra&quot;,
+&quot;adminEmail&quot;: &quot;aditya.m@example.com&quot;,
+&quot;adminPhone&quot;: &quot;9876543210&quot;,
+&quot;password&quot;: &quot;a_very_strong_password&quot;
+}
+</code></li>
+<li><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;message&quot;: &quot;Society enrolled successfully!&quot;,
+&quot;societyId&quot;: &quot;a-new-society-uuid&quot;,
+&quot;adminId&quot;: &quot;a-new-admin-user-uuid&quot;
+}
+</code></li>
+<li><strong>Error Response (409 Conflict - User already exists):</strong>
+<code>json
+{
+&quot;message&quot;: &quot;Society enrolled successfully!&quot;,
+&quot;societyId&quot;: &quot;a-new-society-uuid&quot;,
+&quot;adminId&quot;: &quot;a-new-admin-user-uuid&quot;
+}
+</code></li>
+</ul>
+
+<hr>
+<h2 id='3-authentication-auth'>3. Authentication (<code>/auth</code>)</h2>
+<p>Handles user registration, login, and session management.</p>
+<h3 id='post-api-v1-auth-login'><strong>POST</strong> <code>api/v1/auth/login</code></h3>
+<p>Logs in a user and returns a session token.</p>
+
+<ul>
+<li><strong>Description:</strong> A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.</li>
+<li><strong>Request Body:</strong>
+<code>json
+{
+&quot;email&quot;: &quot;email@email.com&quot;,
+&quot;password&quot;: &quot;user_password&quot;,
+&quot;role&quot;: &quot;Admin&quot; // Can be &quot;Admin&quot;, &quot;Resident_Owner&quot;, &quot;Resident_Tenant&quot;, or &quot;Guard&quot;
+}
+</code></li>
+<li><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;token&quot;: &quot;a_long_encrypted_jwt_string&quot;,
+&quot;user&quot;: {
+  &quot;id&quot;: &quot;a_uuid_string&quot;,
+  &quot;fullName&quot;: &quot;Rohan Sharma&quot;,
+  &quot;role&quot;: &quot;Admin&quot;,
+  &quot;societyId&quot;: &quot;society_uuid_string&quot;
+}
+}
+</code></li>
+<li><strong>Error Response: Invalid Credentials (401 Unauthorized):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;Invalid email or password.&quot;
+}
+</code></li>
+<li><strong>Error Response: Role Mismatch (403 Forbidden):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;Access denied. You do not have permission to access this portal.&quot;
+}
+</code></li>
+<li><strong>Error Response: Inactive Account (403 Forbidden):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;Your account has been deactivated. Please contact support.&quot;
+}
+</code></li>
+</ul>
+<h3 id='get-auth-me'><strong>GET</strong> <code>/auth/me</code></h3>
+<p>Retrieves the profile of the currently logged-in user.</p>
+
+<ul>
+<li><strong>Description:</strong> Uses the JWT from the <code>Authorization</code> header to identify and return the user&#39;s details.</li>
+<li><strong>Authorization:</strong> Bearer Token required.</li>
+<li><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;id&quot;: &quot;a_uuid_string&quot;,
+&quot;fullName&quot;: &quot;Rohan Sharma&quot;,
+&quot;email&quot;: &quot;rohan@example.com&quot;,
+&quot;role&quot;: &quot;Admin&quot;,
+&quot;societyId&quot;: &quot;society_uuid_string&quot;,
+&quot;flatId&quot;: null
+}
+</code></li>
+<li><strong>Error Response (401 Unauthorized):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;Authentication token is missing or invalid.&quot;
+}
+</code></li>
+</ul>
+
+<hr>
+<h2 id='4-society-amp-people-mangement'>4. Society &amp; People Mangement</h2>
+<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p>
+
+<p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token in the Authorization header. The backend will use the user&#39;s id, role, and societyId from this token to authorize actions.</p>
+<h2 id='4-1-get-society-details'>4.1. Get Society Details</h2><h3 id='get-society'><strong>GET</strong> <code>/society</code></h3>
+<ul>
+<li><strong>Description:</strong> Retrieves the details of the society that the currently authenticated user belongs to. The backend uses the societyId from the user&#39;s token to fetch the correct record.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Any role: Admin, Resident, etc., can view their own society&#39;s details).</li>
+<li><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;id&quot;: &quot;a-society-uuid&quot;,
+&quot;name&quot;: &quot;Prestige Lakeside Habitation&quot;,
+&quot;registrationNumber&quot;: &quot;KA-BNG-12345&quot;,
+&quot;address&quot;: &quot;Whitefield Main Road&quot;,
+&quot;city&quot;: &quot;Bengaluru&quot;,
+&quot;pincode&quot;: &quot;560066&quot;
+}
+</code></li>
+<li><strong>Error Response (404 Not Found):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;Society not found.&quot;
+}
+</code></li>
+</ul>
+<h3 id='put-society'><strong>PUT</strong> <code>/society</code></h3>
+<ul>
+<li><strong>Description:</strong> Allows an admin to update the core details of their society, such as its name or address.</li>
+<li><p><strong>Authorization:</strong>  Bearer Token required (Admin role only).</p></li>
+<li><p><strong>Request Body:</strong>
+<code>json
+{
+&quot;name&quot;: &quot;Prestige Lakeside Habitation (Updated)&quot;,
+&quot;address&quot;: &quot;New Address, Whitefield, Bengaluru&quot;
+}
+</code></p></li>
+<li><p><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;message&quot;: &quot;Society details updated successfully.&quot;,
+&quot;society&quot;: {
+  &quot;id&quot;: &quot;a-society-uuid&quot;,
+  &quot;name&quot;: &quot;Prestige Lakeside Habitation (Updated)&quot;,
+  &quot;address&quot;: &quot;New Address, Whitefield, Bengaluru&quot;
+}
+}
+</code></p></li>
+<li><p><strong>Error Response (403 Forbidden):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;You do not have permission to perform this action.&quot;
+}
+</code></p></li>
+</ul>
+<h2 id='5-members-amp-flats-members'>5. Members &amp; Flats (<code>/members</code>)</h2>
+<p>Manages the residents, owners, tenants, and staff of a society.</p>
+<h3 id='get-members'><strong>GET</strong> <code>/members</code></h3>
+<p>Retrieves a paginated list of all members in the society.</p>
+
+<ul>
+<li><strong>Description:</strong> Fetches a list of all users (residents, owners, etc.) for the admin&#39;s society. Supports searching and filtering.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
+<li><strong>Query Parameters (Optional):</strong>
+
+<ul>
+<li><code>?search=Rohan</code>: Filters members by name, flat, or contact.</li>
+<li><code>?role=Tenant</code>: Filters members by a specific role.</li>
+<li><code>?page=1&amp;limit=10</code>: For pagination.</li>
+</ul></li>
+<li><strong>Successful Response (200 OK):</strong>
+<code>json
+{
+&quot;data&quot;: [
+  {
+    &quot;id&quot;: &quot;user_uuid_1&quot;,
+    &quot;flatNo&quot;: &quot;A-101&quot;,
+    &quot;status&quot;: &quot;Occupied&quot;,
+    &quot;residentName&quot;: &quot;Rohan Sharma&quot;,
+    &quot;role&quot;: &quot;Owner&quot;,
+    &quot;contact&quot;: &quot;9876543210&quot;
+  },
+  {
+    &quot;id&quot;: &quot;user_uuid_2&quot;,
+    &quot;flatNo&quot;: &quot;B-204&quot;,
+    &quot;status&quot;: &quot;Occupied&quot;,
+    &quot;residentName&quot;: &quot;Anita Desai&quot;,
+    &quot;role&quot;: &quot;Tenant&quot;,
+    &quot;contact&quot;: &quot;9123456789&quot;
+  }
+],
+&quot;pagination&quot;: {
+  &quot;total&quot;: 150,
+  &quot;page&quot;: 1,
+  &quot;limit&quot;: 10,
+  &quot;totalPages&quot;: 15
+}
+}
+</code></li>
+</ul>
+<h3 id='post-members'><strong>POST</strong> <code>/members</code></h3>
+<p>Creates a new member in the society.</p>
+
+<ul>
+<li><strong>Description:</strong> Adds a new resident, owner, or staff member to the database.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
+<li><strong>Request Body:</strong>
+<code>json
+{
+&quot;fullName&quot;: &quot;New Member Name&quot;,
+&quot;phoneNumber&quot;: &quot;9998887776&quot;,
+&quot;email&quot;: &quot;new.member@example.com&quot;,
+&quot;role&quot;: &quot;Resident_Tenant&quot;,
+&quot;flatId&quot;: &quot;flat_uuid_string_for_their_apartment&quot;
+}
+</code></li>
+<li><strong>Successful Response (201 Created):</strong>
+<code>json
+{
+&quot;id&quot;: &quot;new_user_uuid&quot;,
+&quot;message&quot;: &quot;Member created successfully.&quot;
+}
+</code></li>
+<li><strong>Error Response (400 Bad Request):</strong>
+<code>json
+{
+&quot;error&quot;: &quot;A user with this phone number already exists.&quot;
+}
+</code></li>
+</ul>
+
       </div>
       <div class="dark-box">
           <div class="lang-selector">
