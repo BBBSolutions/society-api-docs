@@ -1,1 +1,1 @@
-# Soceity App API Documentation
+# Society App API Documentation
