@@ -1,7 +1,7 @@
 # Authentication
 
 
-## 1. Authentication (`/auth`)
+## 1. Authentication
 
 > Request Body:
 
@@ -58,6 +58,25 @@ Logs in a user and returns a session token.
 
 - **Description:** A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.
 
+### Request
+
+| Parameter | Type   | Description                                                                          |
+| :-------- | :----- | :----------------------------------------------------------------------------------- |
+| `email`     | String | **Required.** The user's registered email address.                                   |
+| `password`  | String | **Required.** The user's password.                                                   |
+| `role`      | String | **Required.** The role the user is logging in as (e.g., `Admin`, `Guard`, `Resident_Owner`, `Resident_Tenant`). |
+
+### Response
+
+| Parameter      | Type   | Description                                                        |
+| :------------- | :----- | :----------------------------------------------------------------- |
+| `token`        | String | An authentication JWT (JSON Web Token) for subsequent API requests.  |
+| `user`         | Object | An object containing details of the logged-in user.                |
+| `user.id`      | UUID   | The unique identifier for the user.                                |
+| `user.fullName`| String | The full name of the user.                                         |
+| `user.role`    | String | The role assigned to the user (e.g., `Admin`).                     |
+| `user.societyId`| UUID   | The unique identifier for the society to which the user belongs.   |
+
 ## 2. Get Current Logged In User profile (`/auth`)
 
 > Successful Response (200 OK):
@@ -80,10 +99,27 @@ Logs in a user and returns a session token.
 }
 ```
 
+Retrieves the profile of the currently logged-in user.
 
 ### **GET** `/auth/me`
 
-Retrieves the profile of the currently logged-in user.
-
 - **Description:** Uses the JWT from the `Authorization` header to identify and return the user's details.
 - **Authorization:** Bearer Token required.
+
+### Request Headers
+
+| Header          | Type   | Description                                                     |
+| :-------------- | :----- | :-------------------------------------------------------------- |
+| `Authorization` | String | **Required.** The JWT token, prefixed with "Bearer " (e.g., `Bearer <token>`). |
+
+### Response
+
+| Parameter   | Type         | Description                                                        |
+| :---------- | :----------- | :----------------------------------------------------------------- |
+| `id`        | UUID         | The unique identifier for the user.                                |
+| `fullName`  | String       | The full name of the user.                                         |
+| `email`     | String       | The user's registered email address.                               |
+| `role`      | String       | The role assigned to the user (e.g., `Admin`).                     |
+| `societyId` | UUID         | The unique identifier for the society to which the user belongs.   |
+| `flatId`    | UUID | null | The unique identifier for the user's flat. Can be `null`.          |
+
