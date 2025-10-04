@@ -317,6 +317,51 @@
           <li>
             <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
           </li>
+          <li>
+            <a href="#society-management-app-gateway-api-design" class="toc-h1 toc-link" data-title="Society Management App(Gateway) - API Design">Society Management App(Gateway) - API Design</a>
+          </li>
+          <li>
+            <a href="#enroll-your-society-module" class="toc-h1 toc-link" data-title="Enroll Your Society Module">Enroll Your Society Module</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-enroll-your-society-leads" class="toc-h2 toc-link" data-title="1. Enroll your society (/leads)">1. Enroll your society (<code>/leads</code>)</a>
+                  </li>
+                  <li>
+                    <a href="#2-enroll-a-new-society-internal-api" class="toc-h2 toc-link" data-title="2.  Enroll a New Society (Internal API)">2.  Enroll a New Society (Internal API)</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-authentication-auth" class="toc-h2 toc-link" data-title="1. Authentication (/auth)">1. Authentication (<code>/auth</code>)</a>
+                  </li>
+                  <li>
+                    <a href="#2-get-current-logged-in-user-profile-auth" class="toc-h2 toc-link" data-title="2. Get Current Logged In User profile (/auth)">2. Get Current Logged In User profile (<code>/auth</code>)</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
+            <a href="#society-management" class="toc-h1 toc-link" data-title="Society Management">Society Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#society-amp-people-mangement" class="toc-h2 toc-link" data-title="Society &amp; People Mangement">Society &amp; People Mangement</a>
+                  </li>
+                  <li>
+                    <a href="#1-get-society-details" class="toc-h2 toc-link" data-title="1. Get Society Details">1. Get Society Details</a>
+                  </li>
+                  <li>
+                    <a href="#2-update-society-details" class="toc-h2 toc-link" data-title="2. Update Society Details">2. Update Society Details</a>
+                  </li>
+                  <li>
+                    <a href="#3-get-all-members" class="toc-h2 toc-link" data-title="3. Get All Members">3. Get All Members</a>
+                  </li>
+                  <li>
+                    <a href="#4-create-a-new-member" class="toc-h2 toc-link" data-title="4. Create a New Member">4. Create a New Member</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Society © 2025</li>
@@ -328,7 +373,302 @@
         <h1 id='introduction'>Introduction</h1>
 <p>Welcome to the Society Docs API! You can utilize our API to access Society API endpoints, which provide information on various operations within our system.</p>
 
-<p>&lt;%= partial &quot;api/v1/v1&quot; %&gt;</p>
+<h1 id='society-management-app-gateway-api-design'>Society Management App(Gateway) - API Design</h1>
+
+<p><strong>Version:</strong> 1.0.0
+<strong>Base URL:</strong> <code>/api/v1</code></p>
+
+<p>This document provides a specification for the REST API. It&#39;s the single source of truth for both frontend and backend development.</p>
+
+<p><h1 id='enroll-your-society-module'>Enroll Your Society Module</h1><h2 id='1-enroll-your-society-leads'>1. Enroll your society (<code>/leads</code>)</h2>
+<blockquote>
+<p>Request Body:</p>
+
+<p></blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aditya Mishra&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876543210&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;societyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prestige Lakeside Habitation&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bhopal&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;Reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Request a Demo&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">existing</span><span class="w"> </span><span class="err">user</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Manages when the customer comes to our website for enrolling their society or for taking a demo.</p>
+<h3 id='post-leads'><strong>POST</strong> <code>/leads</code></h3>
+<ul>
+<li><strong>Description:</strong> Form for enrolling the society for taking a demo or as a existing user</li>
+<li><strong>Authorization:</strong> None(public).</li>
+</ul>
+<h2 id='2-enroll-a-new-society-internal-api'>2.  Enroll a New Society (Internal API)</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;societyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prestige Lakeside Habitation&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;registrationNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KA-BNG-12345&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Whitefield Main Road&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;adminName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aditya Mishra&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;adminEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aditya.m@example.com&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;adminPhone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876543210&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_very_strong_password&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Society enrolled successfully!&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-society-uuid&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;adminId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-admin-user-uuid&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Error Response (409 Conflict - User already exists):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Society enrolled successfully!&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-society-uuid&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;adminId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-admin-user-uuid&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This is the API for the form your team will use to onboard a new society after a sales lead is converted.</p>
+<h3 id='post-enrollment'><strong>POST</strong> <code>/enrollment</code></h3>
+<ul>
+<li><strong>Description:</strong> Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.</li>
+<li><strong>Authorization:</strong>  Internal Admin Token required.</li>
+</ul></p></p>
+
+<p><h1 id='authentication'>Authentication</h1><h2 id='1-authentication-auth'>1. Authentication (<code>/auth</code>)</h2>
+<blockquote>
+<p>Request Body:</p>
+
+<p></blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email@email.com&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_password&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Can</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Resident_Owner&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Resident_Tenant&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="s2">&quot;Guard&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_long_encrypted_jwt_string&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_uuid_string&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;fullName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rohan Sharma&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="p">,</span><span class="w">
+    </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;society_uuid_string&quot;</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Error Response: Invalid Credentials (401 Unauthorized):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Invalid email or password.&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Error Response: Role Mismatch (403 Forbidden):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Access denied. You do not have permission to access this portal.&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Error Response: Inactive Account (403 Forbidden):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your account has been deactivated. Please contact support.&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Handles user registration, login, and session management.</p>
+<h3 id='post-api-v1-auth-login'><strong>POST</strong> <code>api/v1/auth/login</code></h3>
+<p>Logs in a user and returns a session token.</p></p></p>
+
+<ul>
+<li><strong>Description:</strong> A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.</li>
+</ul>
+
+<h2 id='2-get-current-logged-in-user-profile-auth'>2. Get Current Logged In User profile (<code>/auth</code>)</h2>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a_uuid_string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rohan Sharma"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rohan@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Admin"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"societyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"society_uuid_string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"flatId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Error Response (401 Unauthorized):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authentication token is missing or invalid."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-auth-me'><strong>GET</strong> <code>/auth/me</code></h3>
+<p>Retrieves the profile of the currently logged-in user.</p>
+
+<ul>
+<li><strong>Description:</strong> Uses the JWT from the <code>Authorization</code> header to identify and return the user&#39;s details.</li>
+<li><strong>Authorization:</strong> Bearer Token required.</li>
+</ul>
+
+<h1 id='society-management'>Society Management</h1><h2 id='society-amp-people-mangement'>Society &amp; People Mangement</h2>
+<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p>
+
+<p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token in the Authorization header. The backend will use the user&#39;s id, role, and societyId from this token to authorize actions.</p>
+<h2 id='1-get-society-details'>1. Get Society Details</h2>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-society-uuid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"registrationNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"KA-BNG-12345"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Whitefield Main Road"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bengaluru"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560066"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Error Response (404 Not Found):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society not found."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-society'><strong>GET</strong> <code>/society</code></h3>
+<ul>
+<li><strong>Description:</strong> Retrieves the details of the society that the currently authenticated user belongs to. The backend uses the societyId from the user&#39;s token to fetch the correct record.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Any role: Admin, Resident, etc., can view their own society&#39;s details).</li>
+</ul>
+<h2 id='2-update-society-details'>2. Update Society Details</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation (Updated)"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Address, Whitefield, Bengaluru"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society details updated successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"society"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-society-uuid"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation (Updated)"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Address, Whitefield, Bengaluru"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Error Response (403 Forbidden):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You do not have permission to perform this action."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='put-society'><strong>PUT</strong> <code>/society</code></h3>
+<ul>
+<li><strong>Description:</strong> Allows an admin to update the core details of their society, such as its name or address.</li>
+<li><strong>Authorization:</strong>  Bearer Token required (Admin role only).</li>
+</ul>
+<h2 id='3-get-all-members'>3. Get All Members</h2>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_uuid_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A-101"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Occupied"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"residentName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rohan Sharma"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Owner"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_uuid_2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B-204"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Occupied"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"residentName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Anita Desai"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Tenant"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9123456789"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">15</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-members'><strong>GET</strong> <code>/members</code></h3>
+<p>Retrieves a paginated list of all members in the society.</p>
+
+<ul>
+<li><strong>Description:</strong> Fetches a list of all users (residents, owners, etc.) for the admin&#39;s society. Supports searching and filtering.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
+<li><strong>Query Parameters (Optional):</strong>
+
+<ul>
+<li><code>?search=Rohan</code>: Filters members by name, flat, or contact.</li>
+<li><code>?role=Tenant</code>: Filters members by a specific role.</li>
+<li><code>?page=1&amp;limit=10</code>: For pagination.</li>
+</ul></li>
+</ul>
+<h2 id='4-create-a-new-member'>4. Create a New Member</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Member Name"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9998887776"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new.member@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Resident_Tenant"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"flatId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flat_uuid_string_for_their_apartment"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_user_uuid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Member created successfully."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Error Response (400 Bad Request):</p>
+</blockquote>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A user with this phone number already exists.&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-members'><strong>POST</strong> <code>/members</code></h3>
+<p>Creates a new member in the society.</p></p>
+
+<ul>
+<li><strong>Description:</strong> Adds a new resident, owner, or staff member to the database.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
+</ul>
 
       </div>
       <div class="dark-box">
