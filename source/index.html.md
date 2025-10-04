@@ -26,3 +26,5 @@ meta:
 # Introduction
 
 Welcome to the Society Docs API! You can utilize our API to access Society API endpoints, which provide information on various operations within our system.
+
+<%= partial "api/v1/v1" %>
