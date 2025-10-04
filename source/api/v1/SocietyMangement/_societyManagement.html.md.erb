@@ -1,0 +1,158 @@
+# Society Management
+
+## Society & People Mangement
+
+This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.
+
+**Authorization**: All endpoints in this module require a Bearer Token in the Authorization header. The backend will use the user's id, role, and societyId from this token to authorize actions.
+
+
+## 1. Get Society Details
+
+> Successful Response (200 OK):
+
+```json
+{
+  "id": "a-society-uuid",
+  "name": "Prestige Lakeside Habitation",
+  "registrationNumber": "KA-BNG-12345",
+  "address": "Whitefield Main Road",
+  "city": "Bengaluru",
+  "pincode": "560066"
+}
+```
+
+> Error Response (404 Not Found):
+
+```json
+{
+  "error": "Society not found."
+}
+```
+
+
+### **GET** `/society`
+
+
+- **Description:** Retrieves the details of the society that the currently authenticated user belongs to. The backend uses the societyId from the user's token to fetch the correct record.
+- **Authorization:** Bearer Token required (Any role: Admin, Resident, etc., can view their own society's details).
+
+
+## 2. Update Society Details
+
+> Request Body:
+
+```json
+{
+  "name": "Prestige Lakeside Habitation (Updated)",
+  "address": "New Address, Whitefield, Bengaluru"
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "message": "Society details updated successfully.",
+  "society": {
+    "id": "a-society-uuid",
+    "name": "Prestige Lakeside Habitation (Updated)",
+    "address": "New Address, Whitefield, Bengaluru"
+  }
+}
+```
+> Error Response (403 Forbidden):
+
+```json
+{
+  "error": "You do not have permission to perform this action."
+}
+```
+
+### **PUT** `/society`
+
+- **Description:** Allows an admin to update the core details of their society, such as its name or address.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+## 3. Get All Members
+
+> Successful Response (200 OK):
+
+```json
+{
+  "data": [
+    {
+      "id": "user_uuid_1",
+      "flatNo": "A-101",
+      "status": "Occupied",
+      "residentName": "Rohan Sharma",
+      "role": "Owner",
+      "contact": "9876543210"
+    },
+    {
+      "id": "user_uuid_2",
+      "flatNo": "B-204",
+      "status": "Occupied",
+      "residentName": "Anita Desai",
+      "role": "Tenant",
+      "contact": "9123456789"
+    }
+  ],
+  "pagination": {
+    "total": 150,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 15
+  }
+}
+```
+
+### **GET** `/members`
+
+Retrieves a paginated list of all members in the society.
+
+- **Description:** Fetches a list of all users (residents, owners, etc.) for the admin's society. Supports searching and filtering.
+- **Authorization:** Bearer Token required (Admin role).
+- **Query Parameters (Optional):**
+  - `?search=Rohan`: Filters members by name, flat, or contact.
+  - `?role=Tenant`: Filters members by a specific role.
+  - `?page=1&limit=10`: For pagination.
+
+
+
+## 4. Create a New Member
+
+> Request Body:
+
+```json
+{
+  "fullName": "New Member Name",
+  "phoneNumber": "9998887776",
+  "email": "new.member@example.com",
+  "role": "Resident_Tenant",
+  "flatId": "flat_uuid_string_for_their_apartment"
+}
+```
+> Successful Response (201 Created):
+
+```json
+{
+  "id": "new_user_uuid",
+  "message": "Member created successfully."
+}
+```
+
+> Error Response (400 Bad Request):
+
+```json
+{
+  "error": "A user with this phone number already exists."
+}
+```
+
+### **POST** `/members`
+
+Creates a new member in the society.
+
+- **Description:** Adds a new resident, owner, or staff member to the database.
+- **Authorization:** Bearer Token required (Admin role).

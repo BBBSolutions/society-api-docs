@@ -1,0 +1,68 @@
+# Enroll Your Society Module
+
+
+## 1. Enroll your society (`/leads`)
+
+> Request Body:
+
+```json
+{
+  "name": "Aditya Mishra",
+  "mobile": "9876543210",
+  "societyName": "Prestige Lakeside Habitation",
+  "city": "Bhopal",
+  "Reason": "Request a Demo" // or existing user
+}
+```
+
+Manages when the customer comes to our website for enrolling their society or for taking a demo.
+
+### **POST** `/leads`
+
+- **Description:** Form for enrolling the society for taking a demo or as a existing user
+- **Authorization:** None(public).
+
+
+## 2.  Enroll a New Society (Internal API)
+
+
+> Request Body:
+
+```json
+{
+    "societyName": "Prestige Lakeside Habitation",
+    "registrationNumber": "KA-BNG-12345",
+    "address": "Whitefield Main Road",
+    "adminName": "Aditya Mishra",
+    "adminEmail": "aditya.m@example.com",
+    "adminPhone": "9876543210",
+    "password": "a_very_strong_password"
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "message": "Society enrolled successfully!",
+  "societyId": "a-new-society-uuid",
+  "adminId": "a-new-admin-user-uuid"
+}
+```
+> Error Response (409 Conflict - User already exists):
+
+```json
+{
+  "message": "Society enrolled successfully!",
+  "societyId": "a-new-society-uuid",
+  "adminId": "a-new-admin-user-uuid"
+}
+```
+
+
+This is the API for the form your team will use to onboard a new society after a sales lead is converted.
+
+### **POST** `/enrollment`
+
+- **Description:** Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.
+- **Authorization:**  Internal Admin Token required.

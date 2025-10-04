@@ -1,0 +1,89 @@
+# Authentication
+
+
+## 1. Authentication (`/auth`)
+
+> Request Body:
+
+```json
+{
+  "email": "email@email.com",
+  "password": "user_password",
+  "role": "Admin" // Can be "Admin", "Resident_Owner", "Resident_Tenant", or "Guard"
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "token": "a_long_encrypted_jwt_string",
+  "user": {
+    "id": "a_uuid_string",
+    "fullName": "Rohan Sharma",
+    "role": "Admin",
+    "societyId": "society_uuid_string"
+  }
+}
+```
+
+> Error Response: Invalid Credentials (401 Unauthorized):
+
+```json
+{
+  "error": "Invalid email or password."
+}
+```
+> Error Response: Role Mismatch (403 Forbidden):
+
+```json
+{
+  "error": "Access denied. You do not have permission to access this portal."
+}
+```
+
+> Error Response: Inactive Account (403 Forbidden):
+
+```json
+{
+  "error": "Your account has been deactivated. Please contact support."
+}
+```
+
+Handles user registration, login, and session management.
+
+### **POST** `api/v1/auth/login`
+
+Logs in a user and returns a session token.
+
+- **Description:** A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.
+
+## 2. Get Current Logged In User profile (`/auth`)
+
+> Successful Response (200 OK):
+
+```json
+{
+  "id": "a_uuid_string",
+  "fullName": "Rohan Sharma",
+  "email": "rohan@example.com",
+  "role": "Admin",
+  "societyId": "society_uuid_string",
+  "flatId": null
+}
+```
+> Error Response (401 Unauthorized):
+
+```json
+{
+  "error": "Authentication token is missing or invalid."
+}
+```
+
+
+### **GET** `/auth/me`
+
+Retrieves the profile of the currently logged-in user.
+
+- **Description:** Uses the JWT from the `Authorization` header to identify and return the user's details.
+- **Authorization:** Bearer Token required.
