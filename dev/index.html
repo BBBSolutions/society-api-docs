@@ -804,15 +804,80 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society not found."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='get-society'><strong>GET</strong> <code>/society</code></h3>
+</span></code></pre></div>
+
+<p>This endpoint is a <code>GET</code> request and does not have a request body. Authorization is handled via headers.</p>
+
+<h3 id='get-society'><strong>GET</strong> <code>/society</code></h3>
+
 <ul>
 <li><strong>Description:</strong> Retrieves the details of the society that the currently authenticated user belongs to. The backend uses the societyId from the user&#39;s token to fetch the correct record.</li>
 <li><strong>Authorization:</strong> Bearer Token required (Any role: Admin, Resident, etc., can view their own society&#39;s details).</li>
 </ul>
+
+<h3 id='request-headers'>Request Headers</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='response'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The official name of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>registrationNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The society&#39;s official registration number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>address</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The street address of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>city</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The city where the society is located.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pincode</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The postal code for the society&#39;s address.</td>
+</tr>
+</tbody></table>
+
 <h2 id='2-update-society-details'>2. Update Society Details</h2>
+
 <blockquote>
 <p>Request Body:</p>
 </blockquote>
+
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation (Updated)"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Address, Whitefield, Bengaluru"</span><span class="w">
@@ -845,6 +910,73 @@
 <li><strong>Description:</strong> Allows an admin to update the core details of their society, such as its name or address.</li>
 <li><strong>Authorization:</strong>  Bearer Token required (Admin role only).</li>
 </ul>
+<h3 id='request-headers-2'>Request Headers</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> The updated name for the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>address</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> The updated full address for the society.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the details were updated.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>society</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">The updated society object.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>society.id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>society.name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The newly updated name of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>society.address</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The newly updated address of the society.</td>
+</tr>
+</tbody></table>
 <h2 id='3-get-all-members'>3. Get All Members</h2>
 <blockquote>
 <p>Successful Response (200 OK):</p>
@@ -889,6 +1021,89 @@
 <li><code>?page=1&amp;limit=10</code>: For pagination.</li>
 </ul></li>
 </ul>
+<h3 id='request-headers-3'>Request Headers</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of member objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier of the member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].flatNo</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The flat number associated with the member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The occupancy status of the flat (e.g., <code>Occupied</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].residentName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full name of the resident.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The role of the member (e.g., <code>Owner</code>, <code>Tenant</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].contact</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The contact phone number of the member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table>
 <h2 id='4-create-a-new-member'>4. Create a New Member</h2>
 <blockquote>
 <p>Request Body:</p>
@@ -926,6 +1141,79 @@
 <li><strong>Description:</strong> Adds a new resident, owner, or staff member to the database.</li>
 <li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
 </ul>
+
+<h3 id='request-headers-4'>Request Headers</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='request-body-2'>Request Body</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>fullName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The full name of the new member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>phoneNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The contact phone number for the new member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>email</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The email address for the new member. Must be unique.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The role to assign to the new member (e.g., <code>Resident Tenant</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>flatId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><strong>Required.</strong> The unique identifier of the flat for the new member.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-4'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the newly created member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A success message indicating that new user has created</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
