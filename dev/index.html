@@ -362,6 +362,14 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#gate-amp-visitor-management" class="toc-h1 toc-link" data-title="Gate &amp; Visitor Management">Gate &amp; Visitor Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-staff" class="toc-h2 toc-link" data-title="1. Staff">1. Staff</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Society © 2025</li>
@@ -380,24 +388,23 @@
 
 <p>This document provides a specification for the REST API. It&#39;s the single source of truth for both frontend and backend development.</p>
 
-<p><h1 id='enroll-your-society-module'>Enroll Your Society Module</h1><h2 id='1-enroll-your-society'>1. Enroll your society</h2>
+<h1 id='enroll-your-society-module'>Enroll Your Society Module</h1><h2 id='1-enroll-your-society'>1. Enroll your society</h2>
 <blockquote>
 <p>Request Body:</p>
-
-<p></blockquote>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aditya Mishra&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876543210&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;societyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prestige Lakeside Habitation&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bhopal&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;Reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Interested for Demo&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">existing</span><span class="w"> </span><span class="err">user</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya Mishra"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"mobile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543210"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"societyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bhopal"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Reason"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Interested for Demo"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">existing</span><span class="w"> </span><span class="err">user</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your Request accepted by our Team.&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your Request accepted by our Team."</span><span class="p">,</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Manages when the customer comes to our website for enrolling their society or for taking a demo or want to buy a product as a existing user.</p>
@@ -458,17 +465,17 @@
 <blockquote>
 <p>Example Request:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">/api/v1/enrollment</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span>
-  <span class="na">method</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">POST</span><span class="dl">&#39;</span><span class="p">,</span>
-  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">&#39;</span><span class="s1">Content-Type</span><span class="dl">&#39;</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">application/json</span><span class="dl">&#39;</span> <span class="p">},</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v1/enrollment</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span> <span class="p">},</span>
   <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-    <span class="na">societyName</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Prestige Lakeside Habitation</span><span class="dl">&quot;</span><span class="p">,</span>
-    <span class="na">registrationNumber</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">KA-BNG-12345</span><span class="dl">&quot;</span><span class="p">,</span>
-    <span class="na">address</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Whitefield Main Road</span><span class="dl">&quot;</span><span class="p">,</span>
-    <span class="na">adminName</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Aditya Mishra</span><span class="dl">&quot;</span><span class="p">,</span>
-    <span class="nx">adminEmail</span><span class="dl">&quot;</span><span class="s2">: </span><span class="dl">&quot;</span><span class="nx">aditya</span><span class="p">.</span><span class="nx">m</span><span class="p">@</span><span class="nd">example</span><span class="p">.</span><span class="nx">com</span><span class="dl">&quot;</span><span class="s2">,
-    adminPhone</span><span class="dl">&quot;</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">9876543210</span><span class="dl">&quot;</span><span class="p">,</span>
-    <span class="nx">password</span><span class="dl">&quot;</span><span class="s2">: </span><span class="dl">&quot;</span><span class="nx">a_very_strong_password</span><span class="dl">&quot;</span><span class="s2">
+    <span class="na">societyName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Prestige Lakeside Habitation</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">registrationNumber</span><span class="p">:</span> <span class="dl">"</span><span class="s2">KA-BNG-12345</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">address</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Whitefield Main Road</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">adminName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Aditya Mishra</span><span class="dl">"</span><span class="p">,</span>
+    <span class="nx">adminEmail</span><span class="dl">"</span><span class="s2">: </span><span class="dl">"</span><span class="nx">aditya</span><span class="p">.</span><span class="nx">m</span><span class="p">@</span><span class="nd">example</span><span class="p">.</span><span class="nx">com</span><span class="dl">"</span><span class="s2">,
+    adminPhone</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">9876543210</span><span class="dl">"</span><span class="p">,</span>
+    <span class="nx">password</span><span class="dl">"</span><span class="s2">: </span><span class="dl">"</span><span class="nx">a_very_strong_password</span><span class="dl">"</span><span class="s2">
   })
 });
 </span></code></pre></div>
@@ -476,18 +483,18 @@
 <p>Successful Response (200 OK):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Society enrolled successfully!&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-society-uuid&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;adminId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-admin-user-uuid&quot;</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society enrolled successfully!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"societyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-new-society-uuid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"adminId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-new-admin-user-uuid"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Error Response (409 Conflict - User already exists):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Society enrolled successfully!&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-society-uuid&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;adminId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a-new-admin-user-uuid&quot;</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society enrolled successfully!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"societyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-new-society-uuid"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"adminId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-new-admin-user-uuid"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>This is the API for the form your team will use to onboard a new society after a sales lead is converted.</p>
@@ -563,29 +570,28 @@
 <td style="text-align: left">UUID</td>
 <td style="text-align: left">The unique ID of the newly created admin user.</td>
 </tr>
-</tbody></table></p></p>
+</tbody></table>
 
-<p><h1 id='authentication'>Authentication</h1><h2 id='1-authentication'>1. Authentication</h2>
+<h1 id='authentication'>Authentication</h1><h2 id='1-authentication'>1. Authentication</h2>
 <blockquote>
 <p>Request Body:</p>
-
-<p></blockquote>
+</blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;email&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;email@email.com&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;user_password&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Can</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Resident_Owner&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;Resident_Tenant&quot;</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="s2">&quot;Guard&quot;</span><span class="w">
+  </span><span class="nl">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@email.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_password"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Admin"</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">Can</span><span class="w"> </span><span class="err">be</span><span class="w"> </span><span class="s2">"Admin"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Resident_Owner"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Resident_Tenant"</span><span class="p">,</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="s2">"Guard"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;token&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_long_encrypted_jwt_string&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;user&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_uuid_string&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;fullName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Rohan Sharma&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Admin&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;societyId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;society_uuid_string&quot;</span><span class="w">
+  </span><span class="nl">"token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a_long_encrypted_jwt_string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a_uuid_string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rohan Sharma"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"role"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Admin"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"societyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"society_uuid_string"</span><span class="w">
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -593,33 +599,31 @@
 <p>Error Response: Invalid Credentials (401 Unauthorized):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Invalid email or password.&quot;</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invalid email or password."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Error Response: Role Mismatch (403 Forbidden):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Access denied. You do not have permission to access this portal.&quot;</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Access denied. You do not have permission to access this portal."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <blockquote>
 <p>Error Response: Inactive Account (403 Forbidden):</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your account has been deactivated. Please contact support.&quot;</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Your account has been deactivated. Please contact support."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>Handles user registration, login, and session management.</p>
 <h3 id='post-api-v1-auth-login'><strong>POST</strong> <code>api/v1/auth/login</code></h3>
-<p>Logs in a user and returns a session token.</p></p></p>
+<p>Logs in a user and returns a session token.</p>
 
 <ul>
 <li><strong>Description:</strong> A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.</li>
 </ul>
-
 <h3 id='request'>Request</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -643,9 +647,7 @@
 <td style="text-align: left"><strong>Required.</strong> The role the user is logging in as (e.g., <code>Admin</code>, <code>Guard</code>, <code>Resident_Owner</code>, <code>Resident_Tenant</code>).</td>
 </tr>
 </tbody></table>
-
 <h3 id='response'>Response</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -684,13 +686,10 @@
 <td style="text-align: left">The unique identifier for the society to which the user belongs.</td>
 </tr>
 </tbody></table>
-
 <h2 id='2-get-current-logged-in-user-profile-auth'>2. Get Current Logged In User profile (<code>/auth</code>)</h2>
-
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a_uuid_string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rohan Sharma"</span><span class="p">,</span><span class="w">
@@ -700,27 +699,20 @@
   </span><span class="nl">"flatId"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Error Response (401 Unauthorized):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authentication token is missing or invalid."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <p>Retrieves the profile of the currently logged-in user.</p>
-
 <h3 id='get-auth-me'><strong>GET</strong> <code>/auth/me</code></h3>
-
 <ul>
 <li><strong>Description:</strong> Uses the JWT from the <code>Authorization</code> header to identify and return the user&#39;s details.</li>
 <li><strong>Authorization:</strong> Bearer Token required.</li>
 </ul>
-
 <h3 id='request-headers'>Request Headers</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Header</th>
@@ -734,9 +726,7 @@
 <td style="text-align: left"><strong>Required.</strong> The JWT token, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
 </tr>
 </tbody></table>
-
 <h3 id='response-2'>Response</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -776,17 +766,14 @@
 </tr>
 </tbody></table>
 
-<p><h1 id='society-management'>Society Management</h1><h2 id='society-amp-people-mangement'>Society &amp; People Mangement</h2>
-<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p></p>
+<h1 id='society-management'>Society Management</h1><h2 id='society-amp-people-mangement'>Society &amp; People Mangement</h2>
+<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p>
 
 <p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token in the Authorization header. The backend will use the user&#39;s id, role, and societyId from this token to authorize actions.</p>
-
 <h2 id='1-get-society-details'>1. Get Society Details</h2>
-
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-society-uuid"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation"</span><span class="p">,</span><span class="w">
@@ -796,27 +783,20 @@
   </span><span class="nl">"pincode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"560066"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Error Response (404 Not Found):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society not found."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <p>This endpoint is a <code>GET</code> request and does not have a request body. Authorization is handled via headers.</p>
-
 <h3 id='get-society'><strong>GET</strong> <code>/society</code></h3>
-
 <ul>
 <li><strong>Description:</strong> Retrieves the details of the society that the currently authenticated user belongs to. The backend uses the societyId from the user&#39;s token to fetch the correct record.</li>
 <li><strong>Authorization:</strong> Bearer Token required (Any role: Admin, Resident, etc., can view their own society&#39;s details).</li>
 </ul>
-
 <h3 id='request-headers'>Request Headers</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Header</th>
@@ -830,9 +810,7 @@
 <td style="text-align: left"><strong>Required.</strong> The JWT token, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
 </tr>
 </tbody></table>
-
 <h3 id='response'>Response</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -871,23 +849,18 @@
 <td style="text-align: left">The postal code for the society&#39;s address.</td>
 </tr>
 </tbody></table>
-
 <h2 id='2-update-society-details'>2. Update Society Details</h2>
-
 <blockquote>
 <p>Request Body:</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation (Updated)"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Address, Whitefield, Bengaluru"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Society details updated successfully."</span><span class="p">,</span><span class="w">
   </span><span class="nl">"society"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -897,11 +870,9 @@
   </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Error Response (403 Forbidden):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"You do not have permission to perform this action."</span><span class="w">
 </span><span class="p">}</span><span class="w">
@@ -1116,34 +1087,28 @@
   </span><span class="nl">"flatId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flat_uuid_string_for_their_apartment"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Successful Response (201 Created):</p>
 </blockquote>
-
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_user_uuid"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Member created successfully."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-
 <blockquote>
 <p>Error Response (400 Bad Request):</p>
 </blockquote>
-
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;error&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A user with this phone number already exists.&quot;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A user with this phone number already exists."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='post-members'><strong>POST</strong> <code>/members</code></h3>
-<p>Creates a new member in the society.</p></p>
+<p>Creates a new member in the society.</p>
 
 <ul>
 <li><strong>Description:</strong> Adds a new resident, owner, or staff member to the database.</li>
 <li><strong>Authorization:</strong> Bearer Token required (Admin role).</li>
 </ul>
-
 <h3 id='request-headers-4'>Request Headers</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Header</th>
@@ -1157,9 +1122,7 @@
 <td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
 </tr>
 </tbody></table>
-
 <h3 id='request-body-2'>Request Body</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -1193,9 +1156,7 @@
 <td style="text-align: left"><strong>Required.</strong> The unique identifier of the flat for the new member.</td>
 </tr>
 </tbody></table>
-
 <h3 id='response-4'>Response</h3>
-
 <table><thead>
 <tr>
 <th style="text-align: left">Parameter</th>
@@ -1214,6 +1175,251 @@
 <td style="text-align: left">A success message indicating that new user has created</td>
 </tr>
 </tbody></table>
+
+<h1 id='gate-amp-visitor-management'>Gate &amp; Visitor Management</h1>
+
+<p>This module handles all operations related to society security, including managing staff, tracking attendance, and logging visitor entries and exits.</p>
+
+<p><strong>Authorization</strong>: Endpoints in this module will require specific roles (Admin, Guard, or Resident), which will be checked via the Bearer Token.</p>
+
+<h2 id='1-staff'>1. Staff</h2>
+
+<p>Endpoints for managing society staff like guards, housekeepers, and electricians.</p>
+
+<h3 id='list-all-staff'>List All Staff</h3>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"staff_uuid_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Ramesh Kumar"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"approvedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Support - Ops 1.5A"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"System (Society Admin)"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"contact"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9811122233"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Security"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"permanentAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Village Rampur, UP"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"companyId: "</span><span class="err">GTY-SC</span><span class="mi">-001</span><span class="s2">",
+      "</span><span class="err">status</span><span class="s2">": "</span><span class="err">Current</span><span class="s2">"
+    }
+  ]
+}
+</span></code></pre></div><h3 id='get-staff'><strong>GET</strong> <code>/staff</code></h3>
+<ul>
+<li><strong>Description:</strong> Retrieves a list of all staff members. This is used to populate the &quot;Manage Staff/Security&quot; page.</li>
+<li><strong>Authorization:</strong>  Bearer Token required (Admin role only).</li>
+<li><strong>Query Parameters (Optional):</strong>
+
+<ul>
+<li><code>?status=Current</code>: Filters by Current, Old, or Blacklisted.</li>
+<li><code>?search=Ramesh</code>: Filters by name or contact number.</li>
+<li><code>?page=1&amp;limit=10</code>: For pagination.</li>
+</ul></li>
+</ul>
+<h3 id='request-headers'>Request Headers</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of staff member objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full name of the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].approvedBy</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Details of the user/system that approved the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].createdBy</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">Details of the user/system that created the record.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].contact</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The contact phone number of the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].type</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The type or role of the staff (e.g., <code>Security</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].permanentAddress</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The permanent address of the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].companyId</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">An identifier for the company the staff member is associated with.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The current employment status (e.g., <code>Current</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table>
+<h3 id='add-new-staff'>Add New Staff</h3>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"avatar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file_path"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fullName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Suresh Yadav"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"phoneNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9786543210"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"permanentAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Minal Residency"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"staffType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Security"</span><span class="p">,</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="s2">"maid"</span><span class="p">,</span><span class="w"> </span><span class="s2">"driver"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Electrician"</span><span class="w">
+  </span><span class="nl">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"default_staff_password"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"GTY-1234"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"idType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aadhar"</span><span class="p">,</span><span class="w">    </span><span class="err">//</span><span class="w"> </span><span class="s2">"Pan"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Voter Id"</span><span class="w">
+  </span><span class="nl">"idFile"</span><span class="p">:</span><span class="w"> </span><span class="s2">"file_path"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Staff member added successfully.&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;staffId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;new_staff_uuid&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-staff'><strong>POST</strong> <code>/staff</code></h3>
+<ul>
+<li><strong>Description:</strong> Creates a new staff member in the society.</li>
+<li><strong>Authorization:</strong>  Bearer Token required (Admin role only).</li>
+</ul>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>avatar</code></td>
+<td style="text-align: left">File</td>
+<td style="text-align: left"><strong>Required.</strong> The profile picture of the staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>fullName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The full name of the new staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>phoneNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The contact phone number for the new staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>permanentAddress</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The permanent address of the new staff member.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>staffType</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The type of staff (e.g., <code>Security</code>, <code>Maid</code>, <code>Driver</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>password</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> A password for the staff member&#39;s account.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>companyName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The name of the company the staff is associated with.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>idType</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The type of identification document (e.g., <code>Aadhar</code>, <code>Pan</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>idFile</code></td>
+<td style="text-align: left">File</td>
+<td style="text-align: left"><strong>Required.</strong> The scanned copy of the identification document.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation message indicating success.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>staffId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the newly created staff member.</td>
+</tr>
+</tbody></table></p>
 
       </div>
       <div class="dark-box">
