@@ -335,7 +335,7 @@
             <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#1-authentication-auth" class="toc-h2 toc-link" data-title="1. Authentication (/auth)">1. Authentication (<code>/auth</code>)</a>
+                    <a href="#1-authentication" class="toc-h2 toc-link" data-title="1. Authentication">1. Authentication</a>
                   </li>
                   <li>
                     <a href="#2-get-current-logged-in-user-profile-auth" class="toc-h2 toc-link" data-title="2. Get Current Logged In User profile (/auth)">2. Get Current Logged In User profile (<code>/auth</code>)</a>
@@ -565,7 +565,7 @@
 </tr>
 </tbody></table></p></p>
 
-<p><h1 id='authentication'>Authentication</h1><h2 id='1-authentication-auth'>1. Authentication (<code>/auth</code>)</h2>
+<p><h1 id='authentication'>Authentication</h1><h2 id='1-authentication'>1. Authentication</h2>
 <blockquote>
 <p>Request Body:</p>
 
@@ -618,6 +618,73 @@
 <li><strong>Description:</strong> A user provides their email and password to receive a JWT (JSON Web Token) for authenticating future requests.</li>
 </ul>
 
+<h3 id='request'>Request</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>email</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The user&#39;s registered email address.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>password</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The user&#39;s password.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The role the user is logging in as (e.g., <code>Admin</code>, <code>Guard</code>, <code>Resident_Owner</code>, <code>Resident_Tenant</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='response'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>token</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">An authentication JWT (JSON Web Token) for subsequent API requests.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>user</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing details of the logged-in user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>user.id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>user.fullName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full name of the user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>user.role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The role assigned to the user (e.g., <code>Admin</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>user.societyId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the society to which the user belongs.</td>
+</tr>
+</tbody></table>
+
 <h2 id='2-get-current-logged-in-user-profile-auth'>2. Get Current Logged In User profile (<code>/auth</code>)</h2>
 
 <blockquote>
@@ -641,22 +708,85 @@
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Authentication token is missing or invalid."</span><span class="w">
 </span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='get-auth-me'><strong>GET</strong> <code>/auth/me</code></h3>
+</span></code></pre></div>
+
 <p>Retrieves the profile of the currently logged-in user.</p>
+
+<h3 id='get-auth-me'><strong>GET</strong> <code>/auth/me</code></h3>
 
 <ul>
 <li><strong>Description:</strong> Uses the JWT from the <code>Authorization</code> header to identify and return the user&#39;s details.</li>
 <li><strong>Authorization:</strong> Bearer Token required.</li>
 </ul>
 
-<h1 id='society-management'>Society Management</h1><h2 id='society-amp-people-mangement'>Society &amp; People Mangement</h2>
-<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p>
+<h3 id='request-headers'>Request Headers</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-2'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>fullName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full name of the user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>email</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The user&#39;s registered email address.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The role assigned to the user (e.g., <code>Admin</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>societyId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the society to which the user belongs.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>flatId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">null</td>
+</tr>
+</tbody></table>
+
+<p><h1 id='society-management'>Society Management</h1><h2 id='society-amp-people-mangement'>Society &amp; People Mangement</h2>
+<p>This module handles the core entities of the application: the society itself, its physical structure (flats), and all the people associated with it.</p></p>
 
 <p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token in the Authorization header. The backend will use the user&#39;s id, role, and societyId from this token to authorize actions.</p>
+
 <h2 id='1-get-society-details'>1. Get Society Details</h2>
+
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
+
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a-society-uuid"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Prestige Lakeside Habitation"</span><span class="p">,</span><span class="w">
