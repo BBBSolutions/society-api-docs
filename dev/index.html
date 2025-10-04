@@ -324,7 +324,7 @@
             <a href="#enroll-your-society-module" class="toc-h1 toc-link" data-title="Enroll Your Society Module">Enroll Your Society Module</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#1-enroll-your-society-leads" class="toc-h2 toc-link" data-title="1. Enroll your society (/leads)">1. Enroll your society (<code>/leads</code>)</a>
+                    <a href="#1-enroll-your-society" class="toc-h2 toc-link" data-title="1. Enroll your society">1. Enroll your society</a>
                   </li>
                   <li>
                     <a href="#2-enroll-a-new-society-internal-api" class="toc-h2 toc-link" data-title="2.  Enroll a New Society (Internal API)">2.  Enroll a New Society (Internal API)</a>
@@ -380,7 +380,7 @@
 
 <p>This document provides a specification for the REST API. It&#39;s the single source of truth for both frontend and backend development.</p>
 
-<p><h1 id='enroll-your-society-module'>Enroll Your Society Module</h1><h2 id='1-enroll-your-society-leads'>1. Enroll your society (<code>/leads</code>)</h2>
+<p><h1 id='enroll-your-society-module'>Enroll Your Society Module</h1><h2 id='1-enroll-your-society'>1. Enroll your society</h2>
 <blockquote>
 <p>Request Body:</p>
 
@@ -390,28 +390,87 @@
   </span><span class="nl">&quot;mobile&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876543210&quot;</span><span class="p">,</span><span class="w">
   </span><span class="nl">&quot;societyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prestige Lakeside Habitation&quot;</span><span class="p">,</span><span class="w">
   </span><span class="nl">&quot;city&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Bhopal&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;Reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Request a Demo&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">existing</span><span class="w"> </span><span class="err">user</span><span class="w">
+  </span><span class="nl">&quot;Reason&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Interested for Demo&quot;</span><span class="w"> </span><span class="err">//</span><span class="w"> </span><span class="err">or</span><span class="w"> </span><span class="err">existing</span><span class="w"> </span><span class="err">user</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>Manages when the customer comes to our website for enrolling their society or for taking a demo.</p>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Your Request accepted by our Team.&quot;</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Manages when the customer comes to our website for enrolling their society or for taking a demo or want to buy a product as a existing user.</p>
 <h3 id='post-leads'><strong>POST</strong> <code>/leads</code></h3>
 <ul>
 <li><strong>Description:</strong> Form for enrolling the society for taking a demo or as a existing user</li>
 <li><strong>Authorization:</strong> None(public).</li>
 </ul>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The full name of the person making the inquiry.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>mobile</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The contact mobile number of the person.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>societyName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The name of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>city</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The city where the society is located.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>Reason</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The purpose of the inquiry (e.g., &quot;Interested for Demo&quot;).</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the lead was submitted successfully.</td>
+</tr>
+</tbody></table>
 <h2 id='2-enroll-a-new-society-internal-api'>2.  Enroll a New Society (Internal API)</h2>
 <blockquote>
-<p>Request Body:</p>
+<p>Example Request:</p>
 </blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">&quot;societyName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Prestige Lakeside Habitation&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;registrationNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;KA-BNG-12345&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;address&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Whitefield Main Road&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;adminName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aditya Mishra&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;adminEmail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;aditya.m@example.com&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;adminPhone&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9876543210&quot;</span><span class="p">,</span><span class="w">
-    </span><span class="nl">&quot;password&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;a_very_strong_password&quot;</span><span class="w">
-</span><span class="p">}</span><span class="w">
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="nx">fetch</span><span class="p">(</span><span class="dl">&#39;</span><span class="s1">/api/v1/enrollment</span><span class="dl">&#39;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="na">method</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">POST</span><span class="dl">&#39;</span><span class="p">,</span>
+  <span class="na">headers</span><span class="p">:</span> <span class="p">{</span> <span class="dl">&#39;</span><span class="s1">Content-Type</span><span class="dl">&#39;</span><span class="p">:</span> <span class="dl">&#39;</span><span class="s1">application/json</span><span class="dl">&#39;</span> <span class="p">},</span>
+  <span class="na">body</span><span class="p">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+    <span class="na">societyName</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Prestige Lakeside Habitation</span><span class="dl">&quot;</span><span class="p">,</span>
+    <span class="na">registrationNumber</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">KA-BNG-12345</span><span class="dl">&quot;</span><span class="p">,</span>
+    <span class="na">address</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Whitefield Main Road</span><span class="dl">&quot;</span><span class="p">,</span>
+    <span class="na">adminName</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">Aditya Mishra</span><span class="dl">&quot;</span><span class="p">,</span>
+    <span class="nx">adminEmail</span><span class="dl">&quot;</span><span class="s2">: </span><span class="dl">&quot;</span><span class="nx">aditya</span><span class="p">.</span><span class="nx">m</span><span class="p">@</span><span class="nd">example</span><span class="p">.</span><span class="nx">com</span><span class="dl">&quot;</span><span class="s2">,
+    adminPhone</span><span class="dl">&quot;</span><span class="p">:</span> <span class="dl">&quot;</span><span class="s2">9876543210</span><span class="dl">&quot;</span><span class="p">,</span>
+    <span class="nx">password</span><span class="dl">&quot;</span><span class="s2">: </span><span class="dl">&quot;</span><span class="nx">a_very_strong_password</span><span class="dl">&quot;</span><span class="s2">
+  })
+});
 </span></code></pre></div>
 <blockquote>
 <p>Successful Response (200 OK):</p>
@@ -436,7 +495,75 @@
 <ul>
 <li><strong>Description:</strong> Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.</li>
 <li><strong>Authorization:</strong>  Internal Admin Token required.</li>
-</ul></p></p>
+</ul>
+<h3 id='request'>Request</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>societyName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The name of the new society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>registrationNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The society&#39;s official registration number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>address</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full address of the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>adminName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The full name of the primary admin user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>adminEmail</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The email address for the admin user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>adminPhone</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The phone number for the admin user.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>password</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> A secure password for the new admin account.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the society was created.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>societyId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique ID of the newly created society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>adminId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique ID of the newly created admin user.</td>
+</tr>
+</tbody></table></p></p>
 
 <p><h1 id='authentication'>Authentication</h1><h2 id='1-authentication-auth'>1. Authentication (<code>/auth</code>)</h2>
 <blockquote>
