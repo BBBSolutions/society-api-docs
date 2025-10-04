@@ -1,7 +1,7 @@
 # Enroll Your Society Module
 
 
-## 1. Enroll your society (`/leads`)
+## 1. Enroll your society
 
 > Request Body:
 
@@ -11,33 +11,61 @@
   "mobile": "9876543210",
   "societyName": "Prestige Lakeside Habitation",
   "city": "Bhopal",
-  "Reason": "Request a Demo" // or existing user
+  "Reason": "Interested for Demo" // or existing user
 }
 ```
 
-Manages when the customer comes to our website for enrolling their society or for taking a demo.
+> Successful Response (200 OK):
+
+```json
+{
+  "message": "Your Request accepted by our Team.",
+}
+```
+
+Manages when the customer comes to our website for enrolling their society or for taking a demo or want to buy a product as a existing user.
 
 ### **POST** `/leads`
 
 - **Description:** Form for enrolling the society for taking a demo or as a existing user
 - **Authorization:** None(public).
 
+### Request Body
+
+| Parameter     | Type   | Description                                                   |
+| :------------ | :----- | :------------------------------------------------------------ |
+| `name`        | String | **Required.** The full name of the person making the inquiry.   |
+| `mobile`      | String | **Required.** The contact mobile number of the person.        |
+| `societyName` | String | **Required.** The name of the society.                        |
+| `city`        | String | **Required.** The city where the society is located.          |
+| `Reason`      | String | **Required.** The purpose of the inquiry (e.g., "Interested for Demo"). |
+
+
+### Response
+
+| Parameter | Type   | Description                                              |
+| :-------- | :----- | :------------------------------------------------------- |
+| `message` | String | A confirmation that the lead was submitted successfully. |
+
 
 ## 2.  Enroll a New Society (Internal API)
 
+> Example Request:
 
-> Request Body:
-
-```json
-{
-    "societyName": "Prestige Lakeside Habitation",
-    "registrationNumber": "KA-BNG-12345",
-    "address": "Whitefield Main Road",
-    "adminName": "Aditya Mishra",
-    "adminEmail": "aditya.m@example.com",
-    "adminPhone": "9876543210",
-    "password": "a_very_strong_password"
-}
+```javascript
+fetch('/api/v1/enrollment', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    societyName: "Prestige Lakeside Habitation",
+    registrationNumber: "KA-BNG-12345",
+    address: "Whitefield Main Road",
+    adminName: "Aditya Mishra",
+    adminEmail": "aditya.m@example.com",
+    adminPhone": "9876543210",
+    password": "a_very_strong_password"
+  })
+});
 ```
 
 > Successful Response (200 OK):
@@ -59,10 +87,30 @@ Manages when the customer comes to our website for enrolling their society or fo
 }
 ```
 
-
 This is the API for the form your team will use to onboard a new society after a sales lead is converted.
 
 ### **POST** `/enrollment`
 
 - **Description:** Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.
 - **Authorization:**  Internal Admin Token required.
+
+
+### Request
+
+| Parameter          | Type   | Description                                               |
+| :----------------- | :----- | :----------------------------------------------------   |
+| `societyName`      | String | **Required.** The name of the new society.              |
+| `registrationNumber` | String | The society's official registration number.           |
+| `address`          | String | The full address of the society.                        |
+| `adminName`        | String | **Required.** The full name of the primary admin user.  |
+| `adminEmail`       | String | **Required.** The email address for the admin user.     |
+| `adminPhone`       | String | **Required.** The phone number for the admin user.      |
+| `password`         | String | **Required.** A secure password for the new admin account. |
+
+### Response
+
+| Parameter | Type   | Description                                     |
+| :-------- | :----- | :---------------------------------------------- |
+| `message`   | String | A confirmation that the society was created.    |
+| `societyId` | UUID   | The unique ID of the newly created society.     |
+| `adminId`   | UUID   | The unique ID of the newly created admin user.  |
