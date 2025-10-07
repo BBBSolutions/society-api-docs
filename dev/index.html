@@ -403,6 +403,12 @@
                   <li>
                     <a href="#1-list-all-flats" class="toc-h2 toc-link" data-title="1. List All Flats">1. List All Flats</a>
                   </li>
+                  <li>
+                    <a href="#2-add-a-new-flat" class="toc-h2 toc-link" data-title="2. Add a New Flat">2. Add a New Flat</a>
+                  </li>
+                  <li>
+                    <a href="#3-list-all-rent-agreements" class="toc-h2 toc-link" data-title="3. List All Rent Agreements">3. List All Rent Agreements</a>
+                  </li>
               </ul>
           </li>
       </ul>
@@ -2198,8 +2204,8 @@
 <p>Successful Response (201 Created):</p>
 </blockquote>
 
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Attendance record updated successfully.&quot;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Attendance record updated successfully."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='put-attendance'>PUT <code>/attendance</code></h3>
 <ul>
@@ -2288,7 +2294,7 @@
 </tr>
 </tbody></table>
 <h3 id='successful-response-200-ok'>Successful Response (200 OK)</h3>
-<p>The response body contains the raw file data for the generated report.</p></p>
+<p>The response body contains the raw file data for the generated report.</p>
 
 <ul>
 <li><strong>Content-Type</strong>: <code>application/pdf</code> or <code>text/csv</code></li>
@@ -2296,35 +2302,31 @@
 </ul>
 
 <h1 id='flats-amp-resident-management'>Flats &amp; Resident Management</h1>
-
 <p>This module handles the core structure of the society, including its physical units (flats) and the residents who occupy them.</p>
 
 <p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token with an Admin role.</p>
-
 <h2 id='1-list-all-flats'>1. List All Flats</h2>
-
 <blockquote>
 <p>Successful Response (200 OK):</p>
 </blockquote>
-
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flat_uuid_1&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;buildingWing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;flatNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;101&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Residential&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;occupancyStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Occupied&quot;</span><span class="w"> 
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flat_uuid_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buildingWing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"101"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Residential"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"occupancyStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Occupied"</span><span class="w"> 
     </span><span class="p">},</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flat_uuid_2&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;buildingWing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;flatNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;102&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Residential&quot;</span><span class="p">,</span><span class="w">
-      </span><span class="nl">&quot;occupancyStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Vacant&quot;</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flat_uuid_2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"buildingWing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"102"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Residential"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"occupancyStatus"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Vacant"</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
-  </span><span class="nl">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='get-flats'><strong>GET</strong> <code>/flats</code></h3>
 <ul>
@@ -2418,7 +2420,238 @@
 <td style="text-align: left">Integer</td>
 <td style="text-align: left">The total number of pages available.</td>
 </tr>
-</tbody></table></p>
+</tbody></table>
+<h2 id='2-add-a-new-flat'>2. Add a New Flat</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"buildingWing"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"flatNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"405"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Residential"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Flat created successfully.&quot;</span><span class="p">,</span><span class="w">
+  </span><span class="nl">&quot;flatId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;new_flat_uuid&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-flats'><strong>POST</strong> <code>/flats</code></h3>
+<ul>
+<li><strong>Description:</strong> Creates a new flat record in the society.</li>
+</ul>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>buildingWing</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The building or wing identifier for the new flat (e.g., <code>C</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>flatNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The number for the new flat (e.g., <code>405</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>type</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The type of the flat (e.g., <code>Residential</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the flat was created successfully.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>flatId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the newly created flat.</td>
+</tr>
+</tbody></table>
+<h2 id='3-list-all-rent-agreements'>3. List All Rent Agreements</h2>
+<blockquote>
+<p>Successful Response (201 Created):</p>
+
+<p></blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+ </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ra_uuid_1&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;apartment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;B/2-Tamsa&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;uploadedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Aman&quot;</span><span class="p">,</span><span class="w">
+        </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tenant&quot;</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">&quot;leaseStartDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-07-01&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;leaseEndDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-07-31&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Expired&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rentAgreements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">&quot;fileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;File-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nl">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/file1.pdf&quot;</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ra_uuid_2&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;apartment&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;65(P)-02&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;uploadedBy&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">&quot;name&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;ACQWA&quot;</span><span class="p">,</span><span class="w">
+        </span><span class="nl">&quot;role&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Tenant&quot;</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">&quot;leaseStartDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2025-03-12&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;leaseEndDate&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2027-03-31&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;status&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Uploaded&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;rentAgreements&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w"> </span><span class="nl">&quot;fileName&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;File-1&quot;</span><span class="p">,</span><span class="w"> </span><span class="nl">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/path/to/file2.pdf&quot;</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-rent-agreements'><strong>POST</strong> <code>/rent-agreements</code></h3>
+<ul>
+<li><strong>Description:</strong> Retrieves a paginated list of all rent agreements in the society. This powers the main &quot;Rent Agreements&quot; table.</li>
+</ul>
+<h3 id='query-parameters-2'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>search</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Searches by apartment (flat number) or the uploader&#39;s name.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters by status (e.g., <code>Uploaded</code>, <code>Expired</code>, <code>Not Uploaded</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The page number for pagination. Defaults to <code>1</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The number of items per page. Defaults to <code>10</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of rent agreement objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the rent agreement record.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].apartment</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The apartment or flat number associated with the agreement.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].uploadedBy</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing details of the user who uploaded the agreement.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].uploadedBy.name</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The name of the uploader.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].uploadedBy.role</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The role of the uploader (e.g., <code>Tenant</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].leaseStartDate</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The start date of the lease in <code>YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].leaseEndDate</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The end date of the lease in <code>YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The current status of the agreement (e.g., <code>Expired</code>, <code>Uploaded</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].rentAgreements</code></td>
+<td style="text-align: left">Array<Object></td>
+<td style="text-align: left">An array of files associated with the rent agreement.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].rentAgreements[].fileName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The name of the uploaded file.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].rentAgreements[].url</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The URL to access the uploaded file.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table></p></p>
 
       </div>
       <div class="dark-box">
