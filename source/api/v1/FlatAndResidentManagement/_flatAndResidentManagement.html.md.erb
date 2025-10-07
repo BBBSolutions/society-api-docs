@@ -58,3 +58,121 @@ This module handles the core structure of the society, including its physical un
 | `pagination.page`         | Integer         | The current page number.                                                       |
 | `pagination.limit`        | Integer         | The number of items requested per page.                                        |
 | `pagination.totalPages`   | Integer         | The total number of pages available.                                           |
+
+
+## 2. Add a New Flat
+
+> Request Body:
+
+```json
+{
+  "buildingWing": "C",
+  "flatNumber": "405",
+  "type": "Residential"
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Flat created successfully.",
+  "flatId": "new_flat_uuid"
+}
+```
+
+### **POST** `/flats`
+
+- **Description:** Creates a new flat record in the society.
+
+### Request Body
+
+| Parameter      | Type   | Description                                                              |
+| :------------- | :----- | :----------------------------------------------------------------------- |
+| `buildingWing` | String | **Required.** The building or wing identifier for the new flat (e.g., `C`). |
+| `flatNumber`   | String | **Required.** The number for the new flat (e.g., `405`).                 |
+| `type`         | String | **Required.** The type of the flat (e.g., `Residential`).                |
+
+### Response
+
+| Parameter | Type   | Description                                              |
+| :-------- | :----- | :------------------------------------------------------- |
+| `message` | String | A confirmation that the flat was created successfully.   |
+| `flatId`  | UUID   | The unique identifier for the newly created flat.        |
+
+
+## 3. List All Rent Agreements
+
+> Successful Response (201 Created):
+
+```json
+{
+ "data": [
+    {
+      "id": "ra_uuid_1",
+      "apartment": "B/2-Tamsa",
+      "uploadedBy": {
+        "name": "Aman",
+        "role": "Tenant"
+      },
+      "leaseStartDate": "2025-07-01",
+      "leaseEndDate": "2025-07-31",
+      "status": "Expired",
+      "rentAgreements": [
+        { "fileName": "File-1", "url": "/path/to/file1.pdf" }
+      ]
+    },
+    {
+      "id": "ra_uuid_2",
+      "apartment": "65(P)-02",
+      "uploadedBy": {
+        "name": "ACQWA",
+        "role": "Tenant"
+      },
+      "leaseStartDate": "2025-03-12",
+      "leaseEndDate": "2027-03-31",
+      "status": "Uploaded",
+      "rentAgreements": [
+        { "fileName": "File-1", "url": "/path/to/file2.pdf" }
+      ]
+    }
+  ],
+  "pagination": { ... }
+}
+```
+
+### **POST** `/rent-agreements`
+
+- **Description:** Retrieves a paginated list of all rent agreements in the society. This powers the main "Rent Agreements" table.
+
+### Query Parameters
+
+| Parameter | Type    | Description                                                                     |
+| :-------- | :------ | :------------------------------------------------------------------------------ |
+| `search`  | String  | *Optional.* Searches by apartment (flat number) or the uploader's name.         |
+| `status`  | String  | *Optional.* Filters by status (e.g., `Uploaded`, `Expired`, `Not Uploaded`).    |
+| `page`    | Integer | *Optional.* The page number for pagination. Defaults to `1`.                    |
+| `limit`   | Integer | *Optional.* The number of items per page. Defaults to `10`.                     |
+
+### Response
+
+| Parameter                        | Type            | Description                                                                    |
+| :------------------------------- | :-------------- | :----------------------------------------------------------------------------- |
+| `data`                           | Array of objects| An array of rent agreement objects.                                            |
+| `data[].id`                      | UUID            | The unique identifier for the rent agreement record.                           |
+| `data[].apartment`               | String          | The apartment or flat number associated with the agreement.                    |
+| `data[].uploadedBy`              | Object          | An object containing details of the user who uploaded the agreement.           |
+| `data[].uploadedBy.name`         | String          | The name of the uploader.                                                      |
+| `data[].uploadedBy.role`         | String          | The role of the uploader (e.g., `Tenant`).                                     |
+| `data[].leaseStartDate`          | String          | The start date of the lease in `YYYY-MM-DD` format.                            |
+| `data[].leaseEndDate`            | String          | The end date of the lease in `YYYY-MM-DD` format.                              |
+| `data[].status`                  | String          | The current status of the agreement (e.g., `Expired`, `Uploaded`).             |
+| `data[].rentAgreements`          | Array<Object>   | An array of files associated with the rent agreement.                          |
+| `data[].rentAgreements[].fileName`| String          | The name of the uploaded file.                                                 |
+| `data[].rentAgreements[].url`     | String          | The URL to access the uploaded file.                                           |
+| `pagination`                     | Object          | An object containing pagination details.                                       |
+| `pagination.total`               | Integer         | The total number of records matching the query.                                |
+| `pagination.page`                | Integer         | The current page number.                                                       |
+| `pagination.limit`               | Integer         | The number of items requested per page.                                        |
+| `pagination.totalPages`          | Integer         | The total number of pages available.                                           |
+
