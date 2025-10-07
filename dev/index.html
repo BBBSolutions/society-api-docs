@@ -366,10 +366,22 @@
             <a href="#gate-amp-visitor-management" class="toc-h1 toc-link" data-title="Gate &amp; Visitor Management">Gate &amp; Visitor Management</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#1-staff" class="toc-h2 toc-link" data-title="1. Staff">1. Staff</a>
+                    <a href="#1-list-all-staff" class="toc-h2 toc-link" data-title="1. List All Staff">1. List All Staff</a>
                   </li>
                   <li>
-                    <a href="#2-visitors" class="toc-h2 toc-link" data-title="2. Visitors">2. Visitors</a>
+                    <a href="#2-add-new-staff" class="toc-h2 toc-link" data-title="2. Add New Staff">2. Add New Staff</a>
+                  </li>
+                  <li>
+                    <a href="#3-get-visitor-log" class="toc-h2 toc-link" data-title="3. Get Visitor Log">3. Get Visitor Log</a>
+                  </li>
+                  <li>
+                    <a href="#4-pre-approve-a-visitor-resident-action" class="toc-h2 toc-link" data-title="4. Pre-Approve a Visitor (Resident Action)">4. Pre-Approve a Visitor (Resident Action)</a>
+                  </li>
+                  <li>
+                    <a href="#5-mark-visitor-exit-guard-action" class="toc-h2 toc-link" data-title="5. Mark Visitor Exit (Guard Action)">5. Mark Visitor Exit (Guard Action)</a>
+                  </li>
+                  <li>
+                    <a href="#6-get-parcel-log" class="toc-h2 toc-link" data-title="6. Get Parcel Log">6. Get Parcel Log</a>
                   </li>
               </ul>
           </li>
@@ -1185,11 +1197,9 @@
 
 <p><strong>Authorization</strong>: Endpoints in this module will require specific roles (Admin, Guard, or Resident), which will be checked via the Bearer Token.</p>
 
-<h2 id='1-staff'>1. Staff</h2>
+<h2 id='1-list-all-staff'>1. List All Staff</h2>
 
 <p>Endpoints for managing society staff like guards, housekeepers, and electricians.</p>
-
-<h3 id='list-all-staff'>List All Staff</h3>
 
 <blockquote>
 <p>Successful Response (200 OK):</p>
@@ -1320,7 +1330,7 @@
 <td style="text-align: left">The total number of pages available.</td>
 </tr>
 </tbody></table>
-<h3 id='add-new-staff'>Add New Staff</h3>
+<h2 id='2-add-new-staff'>2. Add New Staff</h2>
 <blockquote>
 <p>Request Body:</p>
 </blockquote>
@@ -1341,9 +1351,9 @@
 <p>Successful Response (201 Created):</p>
 </blockquote>
 
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Staff member added successfully.&quot;</span><span class="p">,</span><span class="w">
-  </span><span class="nl">&quot;staffId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;new_staff_uuid&quot;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Staff member added successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"staffId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_staff_uuid"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='post-staff'><strong>POST</strong> <code>/staff</code></h3>
 <ul>
@@ -1423,8 +1433,500 @@
 <td style="text-align: left">The unique identifier for the newly created staff member.</td>
 </tr>
 </tbody></table>
-<h2 id='2-visitors'>2. Visitors</h2>
-<p>Endpoints for managing the log of all visitors.</p></p>
+<h2 id='3-get-visitor-log'>3. Get Visitor Log</h2>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"visitor_log_uuid_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B-015"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"visitorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Aditya Mishra"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"visitorPhone"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9880771124"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"visitorType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Cab (Ola)"</span><span class="p">,</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="s2">"Guest"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Delivery"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Maid"</span><span class="w">
+      </span><span class="nl">"entryArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Main Gate"</span><span class="p">,</span><span class="w">   </span><span class="err">//</span><span class="w"> </span><span class="s2">"Side Gate"</span><span class="w">
+      </span><span class="nl">"approvedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Guard"</span><span class="p">,</span><span class="w">     </span><span class="err">//</span><span class="w"> </span><span class="s2">"Resident"</span><span class="w">
+      </span><span class="nl">"expectedInTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-10-04T14:30:00Z"</span><span class="w">
+      </span><span class="nl">"expectedOutTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-10-04T14:30:00Z"</span><span class="w">
+      </span><span class="nl">"creationMode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Guard"</span><span class="w">  </span><span class="err">//</span><span class="w"> </span><span class="s2">"App"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Resident"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p>Endpoints for managing the log of all visitors.</p>
+
+<h3 id='get-visitors'><strong>GET</strong> <code>/visitors</code></h3>
+
+<ul>
+<li><strong>Description:</strong> Retrieves the visitor log, used to populate the &quot;Visitor Records&quot; page.</li>
+<li><strong>Authorization:</strong>  arer Token required (Admin or Guard role).</li>
+</ul>
+
+<h3 id='request-headers-2'>Request Headers</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> or <code>Guard</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='query-parameters'>Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters visitors by status (e.g., <code>Current</code>, <code>Past</code>, <code>Upcoming</code>, <code>Denied</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>date</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters visitors for a specific date in <code>YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>gateId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><em>Optional.</em> Filters visitors who entered through a specific gate.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>search</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Searches by visitor name, phone number, or flat number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The page number for pagination. Defaults to <code>1</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The number of items per page. Defaults to <code>10</code>.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-3'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of visitor log objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the visitor log entry.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].flatNo</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The flat number the visitor is associated with.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].visitorName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The full name of the visitor.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].visitorPhone</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The contact phone number of the visitor.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].visitorType</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The type of visitor (e.g., <code>Cab (Ola)</code>, <code>Guest</code>, <code>Delivery</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].entryArea</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The gate or area of entry (e.g., <code>Main Gate</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].approvedBy</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The role that approved the visitor&#39;s entry (e.g., <code>Guard</code>, <code>Resident</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].expectedInTime</code></td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">The expected entry time for the visitor.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].expectedOutTime</code></td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">The expected exit time for the visitor.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].creationMode</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">How the visitor entry was created (e.g., <code>Guard</code>, <code>App</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table>
+
+<h2 id='4-pre-approve-a-visitor-resident-action'>4. Pre-Approve a Visitor (Resident Action)</h2><h3 id='post-visitors-pre-approve'>POST <code>/visitors/pre-approve</code></h3>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"visitorName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Rahul Sharma"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"visitorType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Guest"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expectedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-09-14T00:00:00Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visitor pre-approved successfully."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<ul>
+<li><strong>Description:</strong> Allows a resident to add an expected visitor to the log, creating an &quot;Upcoming&quot; entry.</li>
+<li><strong>Authorization:</strong>  Bearer Token required (Resident role).</li>
+</ul>
+<h3 id='request-headers-3'>Request Headers</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of a <code>Resident</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='request-body-2'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>visitorName</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The full name of the expected visitor.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>visitorType</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The type of visitor (e.g., <code>Guest</code>, <code>Delivery</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>expectedAt</code></td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left"><strong>Required.</strong> The expected date and time of arrival in ISO format.</td>
+</tr>
+</tbody></table>
+<h3 id='response-4'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the visitor was successfully pre-approved.</td>
+</tr>
+</tbody></table>
+<h2 id='5-mark-visitor-exit-guard-action'>5. Mark Visitor Exit (Guard Action)</h2>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Visitor exit marked successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"visitor"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"d8f8f8f8-4c4c-4c4c-4c4c-121212121212"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Past"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"actualOutTime"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-10-07T04:10:13Z"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='put-visitors-id-exit'>PUT <code>/visitors/:id/exit</code></h3>
+<ul>
+<li><strong>Description:</strong> Allows a guard to mark a visitor as having left the society.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Guard role).</li>
+</ul>
+<h3 id='request-headers-4'>Request Headers</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of a <code>Guard</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+<h3 id='path-parameters'>Path Parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><strong>Required.</strong> The ID of the visitor log entry to update.</td>
+</tr>
+</tbody></table>
+<h3 id='response-5'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the visitor&#39;s exit was successfully marked.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>visitor</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">The updated visitor log object.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>visitor.id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the visitor entry.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>visitor.status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The updated status, which will now be &quot;Past&quot;.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>visitor.actualOutTime</code></td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">The timestamp recorded when the visitor exited.</td>
+</tr>
+</tbody></table>
+<h2 id='6-get-parcel-log'>6. Get Parcel Log</h2>
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"a1b2c3d4-e5f6-7890-1234-567890abcdef"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C-102"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Amazon"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"receivedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-10-06T11:05:14Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"At Gate"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"b2c3d4e5-f6a7-8901-2345-67890abcdef1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A-401"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"provider"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BlueDart"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"receivedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2025-10-06T14:22:05Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"At Gate"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"pagination"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"limit"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalPages"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<p>Endpoint for managing parcels received at the gate.</p>
+
+<h3 id='get-parcels'>GET <code>/parcels</code></h3>
+
+<ul>
+<li><strong>Description:</strong> Retrieves a list of all parcels. This is for the &quot;Parcels&quot; tab on the Visitor Records page.</li>
+<li><strong>Authorization:</strong> Bearer Token required (Admin or Guard role).<br></li>
+</ul>
+
+<h3 id='request-headers-5'>Request Headers</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Header</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>Authorization</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The JWT token of an <code>Admin</code> or <code>Guard</code> user, prefixed with &quot;Bearer &quot; (e.g., <code>Bearer &lt;token&gt;</code>).</td>
+</tr>
+</tbody></table>
+
+<h3 id='query-parameters-2'>Query Parameters</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters parcels by status (e.g., <code>At Gate</code>, <code>Collected</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>search</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Searches by flat number or provider name.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>date</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters parcels received on a specific date in <code>YYYY-MM-DD</code> format.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>gateId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><em>Optional.</em> Filters parcels received at a specific gate.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The page number for pagination. Defaults to <code>1</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The number of items per page. Defaults to <code>10</code>.</td>
+</tr>
+</tbody></table>
+
+<h3 id='response-6'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of parcel objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the parcel.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].flatNo</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The flat number the parcel is addressed to.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].provider</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The delivery service or provider (e.g., <code>Amazon</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].receivedAt</code></td>
+<td style="text-align: left">DateTime</td>
+<td style="text-align: left">The timestamp when the parcel was received.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The current status of the parcel (e.g., <code>At Gate</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
