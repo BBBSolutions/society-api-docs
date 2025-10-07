@@ -1,0 +1,60 @@
+#  Flats & Resident Management
+
+This module handles the core structure of the society, including its physical units (flats) and the residents who occupy them.
+
+**Authorization**: All endpoints in this module require a Bearer Token with an Admin role.
+
+## 1. List All Flats
+
+> Successful Response (200 OK):
+
+```json
+{
+  "data": [
+    {
+      "id": "flat_uuid_1",
+      "buildingWing": "A",
+      "flatNumber": "101",
+      "type": "Residential",
+      "occupancyStatus": "Occupied" 
+    },
+    {
+      "id": "flat_uuid_2",
+      "buildingWing": "A",
+      "flatNumber": "102",
+      "type": "Residential",
+      "occupancyStatus": "Vacant"
+    }
+  ],
+  "pagination": { ... }
+}
+```
+
+### **GET** `/flats`
+
+- **Description:** Retrieves a paginated list of all flats in the society.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Query Parameters
+
+| Parameter | Type    | Description                                                                     |
+| :-------- | :------ | :------------------------------------------------------------------------------ |
+| `search`  | String  | *Optional.* Searches by building wing or flat number.                           |
+| `page`    | Integer | *Optional.* The page number for pagination. Defaults to `1`.                    |
+| `limit`   | Integer | *Optional.* The number of items per page. Defaults to `10`.                     |
+
+### Response
+
+| Parameter                 | Type            | Description                                                                    |
+| :------------------------ | :-------------- | :----------------------------------------------------------------------------- |
+| `data`                    | Array of objects| An array of flat objects.                                                      |
+| `data[].id`               | UUID            | The unique identifier for the flat.                                            |
+| `data[].buildingWing`     | String          | The building or wing identifier (e.g., `A`).                                   |
+| `data[].flatNumber`       | String          | The specific number of the flat (e.g., `101`).                                 |
+| `data[].type`             | String          | The type of the flat (e.g., `Residential`).                                    |
+| `data[].occupancyStatus`  | String          | The current occupancy status of the flat (e.g., `Occupied`, `Vacant`).         |
+| `pagination`              | Object          | An object containing pagination details.                                       |
+| `pagination.total`        | Integer         | The total number of records matching the query.                                |
+| `pagination.page`         | Integer         | The current page number.                                                       |
+| `pagination.limit`        | Integer         | The number of items requested per page.                                        |
+| `pagination.totalPages`   | Integer         | The total number of pages available.                                           |
