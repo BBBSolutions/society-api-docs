@@ -397,6 +397,14 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#flats-amp-resident-management" class="toc-h1 toc-link" data-title="Flats &amp; Resident Management">Flats &amp; Resident Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-list-all-flats" class="toc-h2 toc-link" data-title="1. List All Flats">1. List All Flats</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Society © 2025</li>
@@ -2286,6 +2294,131 @@
 <li><strong>Content-Type</strong>: <code>application/pdf</code> or <code>text/csv</code></li>
 <li><strong>Body</strong>: The binary data of the requested report file, which should trigger a download in the browser.</li>
 </ul>
+
+<h1 id='flats-amp-resident-management'>Flats &amp; Resident Management</h1>
+
+<p>This module handles the core structure of the society, including its physical units (flats) and the residents who occupy them.</p>
+
+<p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token with an Admin role.</p>
+
+<h2 id='1-list-all-flats'>1. List All Flats</h2>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;data&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flat_uuid_1&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;buildingWing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;flatNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;101&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Residential&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;occupancyStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Occupied&quot;</span><span class="w"> 
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">&quot;id&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;flat_uuid_2&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;buildingWing&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;A&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;flatNumber&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;102&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Residential&quot;</span><span class="p">,</span><span class="w">
+      </span><span class="nl">&quot;occupancyStatus&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Vacant&quot;</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">&quot;pagination&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="err">...</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-flats'><strong>GET</strong> <code>/flats</code></h3>
+<ul>
+<li><strong>Description:</strong> Retrieves a paginated list of all flats in the society.</li>
+<li><strong>Authorization:</strong>  Bearer Token required (Admin role only).</li>
+</ul>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>search</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Searches by building wing or flat number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The page number for pagination. Defaults to <code>1</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The number of items per page. Defaults to <code>10</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of flat objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the flat.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].buildingWing</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The building or wing identifier (e.g., <code>A</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].flatNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The specific number of the flat (e.g., <code>101</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].type</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The type of the flat (e.g., <code>Residential</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].occupancyStatus</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The current occupancy status of the flat (e.g., <code>Occupied</code>, <code>Vacant</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table></p>
 
       </div>
       <div class="dark-box">
