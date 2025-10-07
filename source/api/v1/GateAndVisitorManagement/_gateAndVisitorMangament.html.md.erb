@@ -364,3 +364,206 @@ Endpoint for managing parcels received at the gate.
 | `pagination.page`        | Integer         | The current page number.                                           |
 | `pagination.limit`       | Integer         | The number of items requested per page.                            |
 | `pagination.totalPages`  | Integer         | The total number of pages available.                               |
+
+
+## 7. Get Attendance Summary
+
+
+> Successful Response (201 Created):
+
+```json
+{
+  "data": [
+    {
+      "staffId": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+      "name": "Ramesh Kumar",
+      "type": "Security",
+      "presents": 25,
+      "absents": 5,
+      "totalDays": 30
+    },
+    {
+      "staffId": "b2c3d4e5-f6a7-8901-2345-67890abcdef1",
+      "name": "Sunita Devi",
+      "type": "Housekeeping",
+      "presents": 28,
+      "absents": 2,
+      "totalDays": 30
+    }
+  ],
+  "pagination": {
+    "total": 4,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 1
+  }
+}
+```
+
+Endpoint for managing staff and guard attendance.
+
+
+### GET `/attendance/summary`
+
+
+- **Description:** Retrieves the attendance summary for all staff for a given month. This powers the main "Attendance" page.
+- **Authorization:** Bearer Token required (Admin role only).
+
+### Request Headers
+
+| Header          | Type   | Description                                                                          |
+| :-------------- | :----- | :----------------------------------------------------------------------------------- |
+| `Authorization` | String | **Required.** The JWT token of an `Admin` user, prefixed with "Bearer " (e.g., `Bearer <token>`). |
+
+### Query Parameters
+
+| Parameter | Type    | Description                                                                     |
+| :-------- | :------ | :------------------------------------------------------------------------------ |
+| `month`   | String  | **Required.** The month to fetch the summary for, in `YYYY-MM` format (e.g., `2025-10`). |
+| `page`    | Integer | *Optional.* The page number for pagination. Defaults to `1`.                    |
+| `limit`   | Integer | *Optional.* The number of items per page. Defaults to `10`.                     |
+
+### Response
+
+| Parameter                 | Type            | Description                                                                 |
+| :------------------------ | :-------------- | :-------------------------------------------------------------------------- |
+| `data`                    | Array of objects| An array of staff attendance summary objects.                               |
+| `data[].staffId`          | UUID            | The unique identifier for the staff member.                                 |
+| `data[].name`             | String          | The full name of the staff member.                                          |
+| `data[].type`             | String          | The role or type of the staff (e.g., `Security`).                           |
+| `data[].presents`         | Integer         | The total number of days the staff member was present in the given month.   |
+| `data[].absents`          | Integer         | The total number of days the staff member was absent in the given month.    |
+| `data[].totalDays`        | Integer         | The total number of days in the given month.                                |
+| `pagination`              | Object          | An object containing pagination details.                                    |
+| `pagination.total`        | Integer         | The total number of records matching the query.                             |
+| `pagination.page`         | Integer         | The current page number.                                                    |
+| `pagination.limit`        | Integer         | The number of items requested per page.                                     |
+| `pagination.totalPages`   | Integer         | The total number of pages available.                                        |
+
+
+## 8. Mark Attendance
+
+> Request Body:
+
+```json
+{
+  "staffId": "a1b2c3d4-e5f6-7890-1234-567890abcdef",
+  "date": "2025-10-07",
+  "status": "Present"
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Attendance marked successfully."
+}
+```
+
+> Error Response (403 Forbidden - Guard trying to mark past date):
+
+```json
+{
+  "error": "You can only mark attendance for the current day."
+}
+```
+
+### POST `/attendance`
+
+- **Description:** Marks the attendance for a specific staff member on a specific day. Corresponds to the "Mark Today's Attendance" action.
+- **Authorization:** Bearer Token required (Admin or Guard role).
+
+Backend Logic:
+
+If the user's role is Guard, the date in the request body must be the current date. The API will reject requests for past or future dates from a Guard.
+
+If the user's role is Admin, they can use this endpoint for the current day. To modify past records, they must use the PUT /attendance endpoint.
+
+### Request Body
+
+| Parameter | Type   | Description                                                               |
+| :-------- | :----- | :------------------------------------------------------------------------ |
+| `staffId` | UUID   | **Required.** The unique identifier of the staff member.                  |
+| `date`    | String | **Required.** The date for attendance in `YYYY-MM-DD` format.             |
+| `status`  | String | **Required.** The attendance status (e.g., `Present`, `Absent`).          |
+
+### Response
+
+| Parameter | Type   | Description                                |
+| :-------- | :----- | :----------------------------------------- |
+| `message` | String | A confirmation that attendance was marked. |
+
+
+## 9. Update Past Attendance (Admin Only)
+
+> Request Body:
+
+```json
+{
+  "staffId": "staff_uuid_1",
+  "date": "2025-10-03",
+  "status": "On Leave",
+  "remark": "Approved leave application received."
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Attendance record updated successfully."
+}
+```
+
+### PUT `/attendance`
+
+- **Description:** Updates the status of a specific, existing attendance record. This is the admin-only action to correct a missed or incorrect entry from a previous day.
+- **Authorization:** Bearer Token required (Admin role only).
+
+### Request Body
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `status`  | String | **Required.** The new attendance status (e.g., `On Leave`, `Present`). |
+| `staffId` | UUID   | **Required.** The ID of the staff member whose record is being updated.       |
+| `date`    | String | **Required.** The date of the attendance record to update in `YYYY-MM-DD` format. |
+| `remark`  | String | **Required.** A remark or reason for the update. 
+
+### Response
+
+| Parameter | Type   | Description                                              |
+| :-------- | :----- | :------------------------------------------------------- |
+| `message` | String | A confirmation that the record was updated successfully. |
+
+## 10. Generate Attendance Report
+
+
+### GET `/staff/:staffId/attendance/report`
+
+
+- **Description:** Generates a downloadable attendance report (e.g., PDF or CSV) for a specific staff member over a date range.
+- **Authorization:** Bearer Token required (Admin role only).
+
+### Path Parameters
+
+| Parameter | Type | Description                           |
+| :-------- | :--- | :------------------------------------ |
+| `staffId` | UUID | **Required.** The ID of the staff member. |
+
+### Query Parameters
+
+| Parameter   | Type   | Description                                                            |
+| :---------- | :----- | :--------------------------------------------------------------------- |
+| `startDate` | String | **Required.** The start date for the report in `YYYY-MM-DD` format.      |
+| `endDate`   | String | **Required.** The end date for the report in `YYYY-MM-DD` format.        |
+
+
+
+### Successful Response (200 OK)
+
+The response body contains the raw file data for the generated report.
+
+* **Content-Type**: `application/pdf` or `text/csv`
+* **Body**: The binary data of the requested report file, which should trigger a download in the browser.
+
