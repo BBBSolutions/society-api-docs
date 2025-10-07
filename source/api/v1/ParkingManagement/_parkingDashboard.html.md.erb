@@ -1,0 +1,240 @@
+#  Parking Management
+
+This module handles all operations related to managing the society's parking slots and vehicle allocations.
+
+**Authorization**: All endpoints in this module require a Bearer Token with an Admin role.
+
+## 1. Get Parking Dashboard Summary
+
+> Successful Response (200 OK):
+
+```json
+{
+  "totalParkingSlots": 50,
+  "parkingCapacity": 200,
+  "totalAllocatedSlots": 20,
+  "vehiclesWithStickers": 10
+}
+```
+
+### **GET** `/parking/summary`
+
+- **Description:**  Retrieves the high-level statistics for the parking dashboard, used to populate the main stat cards.
+
+
+### Response
+
+| Parameter              | Type    | Description                                                              |
+| :--------------------- | :------ | :----------------------------------------------------------------------- |
+| `totalParkingSlots`    | Integer | The total number of distinct parking slots or areas in the society.      |
+| `parkingCapacity`      | Integer | The total vehicle capacity across all parking slots.                     |
+| `totalAllocatedSlots`  | Integer | The number of parking slots that are currently allocated to residents.   |
+| `vehiclesWithStickers` | Integer | The total number of vehicles that have been issued a parking sticker.      |
+
+## 2. List Parking Slots
+
+
+```javascript
+{
+  // To find all 'Allocated' slots that start with 'A-'
+    fetch('/api/v1/parking/slots?status=Allocated&search=A-', {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer <YOUR_ADMIN_TOKEN>',
+    }
+  });
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "data": [
+    {
+      "id": "ps_uuid_1",
+      "flatNo": "A-421",
+      "parkingSlot": "008",
+      "parkingArea": "Parking",
+      "parkingCapacity": {
+        "twoWheeler": 1,
+        "fourWheeler": 1
+      }
+    },
+    {
+      "id": "ps_uuid_2",
+      "flatNo": "B-011",
+      "parkingSlot": "011",
+      "parkingArea": "Parking",
+      "parkingCapacity": {
+        "twoWheeler": 0,
+        "fourWheeler": 2
+      }
+    }
+  ]
+}
+```
+
+### **GET** `/parking/slots`
+
+- **Description:**  Retrieves a list of all parking slots in the society. This powers the main table on the parking dashboard.
+
+### Query Parameters
+
+| Parameter | Type    | Description                                                                     |
+| :-------- | :------ | :------------------------------------------------------------------------------ |
+| `status`  | String  | *Optional.* Filters slots by status (e.g., `Allocated`, `Free`).                |
+| `search`  | String  | *Optional.* Searches by slot number, parking area, or allocated flat number.    |
+| `page`    | Integer | *Optional.* The page number for pagination. Defaults to `1`.                    |
+| `limit`   | Integer | *Optional.* The number of items per page. Defaults to `10`.                     |
+
+
+### Response
+
+| Parameter                            | Type          | Description                                                                    |
+| :----------------------------------- | :------------ | :----------------------------------------------------------------------------- |
+| `data`                               | Array of objects| An array of parking slot objects.                                              |
+| `data[].id`                          | UUID          | The unique identifier for the parking slot record.                             |
+| `data[].flatNo`                      | String        | The flat number to which the slot is allocated. Can be `null` if free.         |
+| `data[].parkingSlot`                 | String        | The specific number or identifier of the parking slot.                         |
+| `data[].parkingArea`                 | String        | The name or identifier of the parking area (e.g., `Basement 1`).               |
+| `data[].parkingCapacity`             | Object        | An object detailing the vehicle capacity of the slot.                          |
+| `data[].parkingCapacity.twoWheeler`  | Integer       | The number of two-wheelers the slot can accommodate.                           |
+| `data[].parkingCapacity.fourWheeler` | Integer       | The number of four-wheelers the slot can accommodate.                          |
+| `pagination`                         | Object        | An object containing pagination details.                                       |
+| `pagination.total`                   | Integer       | The total number of records matching the query.                                |
+| `pagination.page`                    | Integer       | The current page number.                                                       |
+| `pagination.limit`                   | Integer       | The number of items requested per page.                                        |
+| `pagination.totalPages`              | Integer       | The total number of pages available.                                           |
+
+
+
+## 3. Create a New Parking Slot
+
+> Request Body:
+
+```json
+{
+  "slotNumber": "B-105",
+  "parkingArea": "Basement",
+  "twoWheelerCapacity": 2,
+  "fourWheelerCapacity": 1
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Parking slot created successfully.",
+  "slotId": "new_parking_slot_uuid"
+}
+```
+
+### POST `/parking/slots`
+
+- **Description:**  Allows an admin to add a new parking slot to the society's inventory. This corresponds to the "+ Create Parking" button.
+
+### Request Body
+
+| Parameter           | Type    | Description                                                              |
+| :------------------ | :------ | :----------------------------------------------------------------------- |
+| `slotNumber`        | String  | **Required.** The unique identifier or number for the new slot (e.g., `B-105`). |
+| `parkingArea`       | String  | **Required.** The name of the area where the slot is located (e.g., `Basement`). |
+| `twoWheelerCapacity`| Integer | **Required.** The number of two-wheelers the slot can hold.              |
+| `fourWheelerCapacity`| Integer | **Required.** The number of four-wheelers the slot can hold.             |
+
+### Response
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `message` | String | A confirmation that the parking slot was created successfully.     |
+| `slotId`  | UUID   | The unique identifier for the newly created parking slot.          |
+
+## 4. Allocate a Parking Slot
+
+> Request Body:
+
+```json
+{
+  "slotId": "parking_slot_uuid_to_allocate",
+  "flatId": "flat_uuid_to_allocate_to"
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Parking slot B-105 has been allocated to flat D-210."
+}
+```
+
+> Error Response (409 Conflict):
+
+```json
+{
+  "error": "This parking slot is already allocated."
+}
+```
+
+### POST `/parking/slots/allocate`
+
+- **Description:**  Allocates a specific parking slot to a flat. This corresponds to the "+ Allocate Parking" button.
+
+### Request Body
+
+| Parameter | Type | Description                                                              |
+| :-------- | :--- | :----------------------------------------------------------------------- |
+| `slotId`  | UUID | **Required.** The unique identifier of the parking slot to be allocated.   |
+| `flatId`  | UUID | **Required.** The unique identifier of the flat to which the slot is allocated. |
+
+
+### Response
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `message` | String | A confirmation that the parking slot was successfully allocated.   |
+
+
+## 5. De-allocate a Parking Slot
+
+```javascript
+{
+    // To de-allocate the parking slot with a specific ID
+    const slotIdToDeallocate = "a1b2c3d4-e5f6-7890-1234-567890abcdef";
+
+    fetch(`/api/v1/parking/slots/${slotIdToDeallocate}/deallocate`, {
+    method: 'PUT',
+    headers: {
+        'Authorization': 'Bearer <YOUR_ADMIN_TOKEN>',
+    }
+  });
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "message": "Parking slot has been de-allocated successfully."
+}
+```
+
+### PUT `/parking/slots/:id/deallocate`
+
+- **Description:**  Removes the allocation of a parking slot from a flat, making it "Free". This would be an action inside the table for an allocated slot.
+
+### Path Parameters
+
+| Parameter | Type | Description                                          |
+| :-------- | :--- | :--------------------------------------------------- |
+| `id`      | UUID | **Required.** The ID of the parking slot to de-allocate. |
+
+*Note: This endpoint does not require a request body.*
+
+### Response
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `message` | String | A confirmation that the parking slot was de-allocated successfully.|
