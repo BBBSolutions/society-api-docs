@@ -141,18 +141,20 @@ This module handles the core structure of the society, including its physical un
 }
 ```
 
-### **POST** `/rent-agreements`
+### **GET** `/rent-agreements`
 
 - **Description:** Retrieves a paginated list of all rent agreements in the society. This powers the main "Rent Agreements" table.
 
 ### Query Parameters
 
-| Parameter | Type    | Description                                                                     |
-| :-------- | :------ | :------------------------------------------------------------------------------ |
-| `search`  | String  | *Optional.* Searches by apartment (flat number) or the uploader's name.         |
-| `status`  | String  | *Optional.* Filters by status (e.g., `Uploaded`, `Expired`, `Not Uploaded`).    |
-| `page`    | Integer | *Optional.* The page number for pagination. Defaults to `1`.                    |
-| `limit`   | Integer | *Optional.* The number of items per page. Defaults to `10`.                     |
+| Parameter   | Type    | Description                                                                                   |
+| :---------- | :------ | :-------------------------------------------------------------------------------------------- |
+| `search`    | String  | *Optional.* Searches by apartment (flat number) or the uploader's name.                       |
+| `status`    | String  | *Optional.* Filters by status (e.g., `Uploaded`, `Expired`, `Not Uploaded`).                  |
+| `startDate` | String  | *Optional.* Filters for agreements with a lease start date on or after this date.           |
+| `endDate`   | String  | *Optional.* Filters for agreements with a lease end date on or before this date.              |
+| `page`      | Integer | *Optional.* The page number for pagination. Defaults to `1`.                                  |
+| `limit`     | Integer | *Optional.* The number of items per page. Defaults to `10`.                                   |
 
 ### Response
 
@@ -167,7 +169,7 @@ This module handles the core structure of the society, including its physical un
 | `data[].leaseStartDate`          | String          | The start date of the lease in `YYYY-MM-DD` format.                            |
 | `data[].leaseEndDate`            | String          | The end date of the lease in `YYYY-MM-DD` format.                              |
 | `data[].status`                  | String          | The current status of the agreement (e.g., `Expired`, `Uploaded`).             |
-| `data[].rentAgreements`          | Array<Object>   | An array of files associated with the rent agreement.                          |
+| `data[].rentAgreements`          | Array of objects| An array of files associated with the rent agreement.                          |
 | `data[].rentAgreements[].fileName`| String          | The name of the uploaded file.                                                 |
 | `data[].rentAgreements[].url`     | String          | The URL to access the uploaded file.                                           |
 | `pagination`                     | Object          | An object containing pagination details.                                       |
@@ -176,3 +178,106 @@ This module handles the core structure of the society, including its physical un
 | `pagination.limit`               | Integer         | The number of items requested per page.                                        |
 | `pagination.totalPages`          | Integer         | The total number of pages available.                                           |
 
+
+## 4. Add a New Rent Agreement
+
+> Request Body:
+
+```json
+{
+ 
+  "flatId": "flat_uuid_string",
+  "tenantUserId": "user_uuid_of_tenant",
+  "leaseStartDate": "2025-11-01",
+  "leaseEndDate": "2026-10-31",
+  "documentUrls": [
+    { 
+      "fileName": "Agreement_Nov25.pdf", 
+      "url": "[https://storage.url/agreement.pdf](https://storage.url/agreement.pdf)" 
+    }
+  ]
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Rent agreement created successfully.",
+  "agreementId": "new_agreement_uuid"
+}
+```
+
+
+### **POST** `/rent-agreements`
+
+- **Description:** Creates a new rent agreement record for a tenant and a flat.
+
+### Request Body
+
+| Parameter                  | Type            | Description                                                                    |
+| :------------------------- | :-------------- | :----------------------------------------------------------------------------- |
+| `flatId`                   | UUID            | **Required.** The unique identifier for the flat.                              |
+| `tenantUserId`             | UUID            | **Required.** The unique identifier of the tenant user.                        |
+| `leaseStartDate`           | String          | **Required.** The start date of the lease in `YYYY-MM-DD` format.            |
+| `leaseEndDate`             | String          | **Required.** The end date of the lease in `YYYY-MM-DD` format.              |
+| `documentUrls`             | Array of objects| **Required.** An array of objects containing the uploaded document details.    |
+| `documentUrls[].fileName`  | String          | **Required.** The name of the uploaded agreement file.                         |
+| `documentUrls[].url`       | String          | **Required.** The publicly accessible URL of the uploaded file.                |
+
+### Response
+
+| Parameter     | Type   | Description                                                        |
+| :------------ | :----- | :----------------------------------------------------------------- |
+| `message`     | String | A confirmation that the rent agreement was created successfully.   |
+| `agreementId` | UUID   | The unique identifier for the newly created rent agreement.        |
+
+
+## 5. Send Registration (Bulk Action)
+
+
+> Request Body:
+
+```json
+{
+  "agreementIds": [
+    "ra_uuid_1",
+    "ra_uuid_3"
+  ]
+}
+```
+
+> Successful Response (202 Accepted):
+
+```json
+{
+  "message": "Registration process has been initiated for 2 agreements."
+}
+```
+
+### **POST** `/rent-agreements/send-registration`
+
+
+- **Description:** Triggers a registration process for one or more selected rent agreements. This could involve sending an email or SMS to the tenant.
+
+### Request Body
+
+| Parameter      | Type          | Description                                                              |
+| :------------- | :------------ | :----------------------------------------------------------------------- |
+| `agreementIds` | Array<UUID>   | **Required.** An array of unique identifiers for the agreements to register. |
+
+### Response
+
+This response indicates that the request has been accepted and the registration process has begun in the background.
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `message` | String | A confirmation that the registration process has been initiated.   |
+
+
+## 6. Set Reminder (Bulk Action)
+
+### **POST** `/rent-agreements/set-reminder`
+
+
+- **Description:** Sets an internal reminder for one or more rent agreements, likely to notify the admin before the lease expires.
