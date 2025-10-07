@@ -420,6 +420,26 @@
                   </li>
               </ul>
           </li>
+          <li>
+            <a href="#parking-management" class="toc-h1 toc-link" data-title="Parking Management">Parking Management</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#1-get-parking-dashboard-summary" class="toc-h2 toc-link" data-title="1. Get Parking Dashboard Summary">1. Get Parking Dashboard Summary</a>
+                  </li>
+                  <li>
+                    <a href="#2-list-parking-slots" class="toc-h2 toc-link" data-title="2. List Parking Slots">2. List Parking Slots</a>
+                  </li>
+                  <li>
+                    <a href="#3-create-a-new-parking-slot" class="toc-h2 toc-link" data-title="3. Create a New Parking Slot">3. Create a New Parking Slot</a>
+                  </li>
+                  <li>
+                    <a href="#4-allocate-a-parking-slot" class="toc-h2 toc-link" data-title="4. Allocate a Parking Slot">4. Allocate a Parking Slot</a>
+                  </li>
+                  <li>
+                    <a href="#5-de-allocate-a-parking-slot" class="toc-h2 toc-link" data-title="5. De-allocate a Parking Slot">5. De-allocate a Parking Slot</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li>Society © 2025</li>
@@ -2780,8 +2800,8 @@
 <p>Successful Response (202 Accepted):</p>
 </blockquote>
 
-<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Registration process has been initiated for 2 agreements.&quot;</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Registration process has been initiated for 2 agreements."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='post-rent-agreements-send-registration'><strong>POST</strong> <code>/rent-agreements/send-registration</code></h3>
 <ul>
@@ -2802,7 +2822,7 @@
 </tr>
 </tbody></table>
 <h3 id='response-5'>Response</h3>
-<p>This response indicates that the request has been accepted and the registration process has begun in the background.</p></p>
+<p>This response indicates that the request has been accepted and the registration process has begun in the background.</p>
 
 <table><thead>
 <tr>
@@ -2817,11 +2837,395 @@
 <td style="text-align: left">A confirmation that the registration process has been initiated.</td>
 </tr>
 </tbody></table>
-
-<p><h2 id='6-set-reminder-bulk-action'>6. Set Reminder (Bulk Action)</h2><h3 id='post-rent-agreements-set-reminder'><strong>POST</strong> <code>/rent-agreements/set-reminder</code></h3>
+<h2 id='6-set-reminder-bulk-action'>6. Set Reminder (Bulk Action)</h2><h3 id='post-rent-agreements-set-reminder'><strong>POST</strong> <code>/rent-agreements/set-reminder</code></h3>
 <ul>
 <li><strong>Description:</strong> Sets an internal reminder for one or more rent agreements, likely to notify the admin before the lease expires.</li>
-</ul></p>
+</ul>
+
+<h1 id='parking-management'>Parking Management</h1>
+<p>This module handles all operations related to managing the society&#39;s parking slots and vehicle allocations.</p>
+
+<p><strong>Authorization</strong>: All endpoints in this module require a Bearer Token with an Admin role.</p>
+<h2 id='1-get-parking-dashboard-summary'>1. Get Parking Dashboard Summary</h2>
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"totalParkingSlots"</span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"parkingCapacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalAllocatedSlots"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"vehiclesWithStickers"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-parking-summary'><strong>GET</strong> <code>/parking/summary</code></h3>
+<ul>
+<li><strong>Description:</strong>  Retrieves the high-level statistics for the parking dashboard, used to populate the main stat cards.</li>
+</ul>
+<h3 id='response'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>totalParkingSlots</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of distinct parking slots or areas in the society.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>parkingCapacity</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total vehicle capacity across all parking slots.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>totalAllocatedSlots</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of parking slots that are currently allocated to residents.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>vehiclesWithStickers</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of vehicles that have been issued a parking sticker.</td>
+</tr>
+</tbody></table>
+<h2 id='2-list-parking-slots'>2. List Parking Slots</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+  <span class="c1">// To find all 'Allocated' slots that start with 'A-'</span>
+    <span class="nx">fetch</span><span class="p">(</span><span class="dl">'</span><span class="s1">/api/v1/parking/slots?status=Allocated&amp;search=A-</span><span class="dl">'</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">GET</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer &lt;YOUR_ADMIN_TOKEN&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ps_uuid_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"A-421"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingSlot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"008"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parking"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingCapacity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"twoWheeler"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fourWheeler"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ps_uuid_2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"flatNo"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B-011"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingSlot"</span><span class="p">:</span><span class="w"> </span><span class="s2">"011"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parking"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"parkingCapacity"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"twoWheeler"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fourWheeler"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='get-parking-slots'><strong>GET</strong> <code>/parking/slots</code></h3>
+<ul>
+<li><strong>Description:</strong>  Retrieves a list of all parking slots in the society. This powers the main table on the parking dashboard.</li>
+</ul>
+<h3 id='query-parameters'>Query Parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>status</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Filters slots by status (e.g., <code>Allocated</code>, <code>Free</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>search</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><em>Optional.</em> Searches by slot number, parking area, or allocated flat number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The page number for pagination. Defaults to <code>1</code>.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><em>Optional.</em> The number of items per page. Defaults to <code>10</code>.</td>
+</tr>
+</tbody></table>
+<h3 id='response-2'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>data</code></td>
+<td style="text-align: left">Array of objects</td>
+<td style="text-align: left">An array of parking slot objects.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the parking slot record.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].flatNo</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The flat number to which the slot is allocated. Can be <code>null</code> if free.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].parkingSlot</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The specific number or identifier of the parking slot.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].parkingArea</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">The name or identifier of the parking area (e.g., <code>Basement 1</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].parkingCapacity</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object detailing the vehicle capacity of the slot.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].parkingCapacity.twoWheeler</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of two-wheelers the slot can accommodate.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>data[].parkingCapacity.fourWheeler</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of four-wheelers the slot can accommodate.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination</code></td>
+<td style="text-align: left">Object</td>
+<td style="text-align: left">An object containing pagination details.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.total</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of records matching the query.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.page</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The current page number.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.limit</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The number of items requested per page.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>pagination.totalPages</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left">The total number of pages available.</td>
+</tr>
+</tbody></table>
+<h2 id='3-create-a-new-parking-slot'>3. Create a New Parking Slot</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"slotNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"B-105"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"parkingArea"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Basement"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"twoWheelerCapacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fourWheelerCapacity"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parking slot created successfully."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"slotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"new_parking_slot_uuid"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-parking-slots'>POST <code>/parking/slots</code></h3>
+<ul>
+<li><strong>Description:</strong>  Allows an admin to add a new parking slot to the society&#39;s inventory. This corresponds to the &quot;+ Create Parking&quot; button.</li>
+</ul>
+<h3 id='request-body'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>slotNumber</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The unique identifier or number for the new slot (e.g., <code>B-105</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>parkingArea</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left"><strong>Required.</strong> The name of the area where the slot is located (e.g., <code>Basement</code>).</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>twoWheelerCapacity</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><strong>Required.</strong> The number of two-wheelers the slot can hold.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>fourWheelerCapacity</code></td>
+<td style="text-align: left">Integer</td>
+<td style="text-align: left"><strong>Required.</strong> The number of four-wheelers the slot can hold.</td>
+</tr>
+</tbody></table>
+<h3 id='response-3'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the parking slot was created successfully.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>slotId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left">The unique identifier for the newly created parking slot.</td>
+</tr>
+</tbody></table>
+<h2 id='4-allocate-a-parking-slot'>4. Allocate a Parking Slot</h2>
+<blockquote>
+<p>Request Body:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"slotId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"parking_slot_uuid_to_allocate"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"flatId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"flat_uuid_to_allocate_to"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Successful Response (201 Created):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Parking slot B-105 has been allocated to flat D-210."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+
+<blockquote>
+<p>Error Response (409 Conflict):</p>
+</blockquote>
+
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This parking slot is already allocated."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='post-parking-slots-allocate'>POST <code>/parking/slots/allocate</code></h3>
+<ul>
+<li><strong>Description:</strong>  Allocates a specific parking slot to a flat. This corresponds to the &quot;+ Allocate Parking&quot; button.</li>
+</ul>
+<h3 id='request-body-2'>Request Body</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>slotId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><strong>Required.</strong> The unique identifier of the parking slot to be allocated.</td>
+</tr>
+<tr>
+<td style="text-align: left"><code>flatId</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><strong>Required.</strong> The unique identifier of the flat to which the slot is allocated.</td>
+</tr>
+</tbody></table>
+<h3 id='response-4'>Response</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the parking slot was successfully allocated.</td>
+</tr>
+</tbody></table>
+<h2 id='5-de-allocate-a-parking-slot'>5. De-allocate a Parking Slot</h2><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="p">{</span>
+    <span class="c1">// To de-allocate the parking slot with a specific ID</span>
+    <span class="kd">const</span> <span class="nx">slotIdToDeallocate</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">a1b2c3d4-e5f6-7890-1234-567890abcdef</span><span class="dl">"</span><span class="p">;</span>
+
+    <span class="nx">fetch</span><span class="p">(</span><span class="s2">`/api/v1/parking/slots/</span><span class="p">${</span><span class="nx">slotIdToDeallocate</span><span class="p">}</span><span class="s2">/deallocate`</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">PUT</span><span class="dl">'</span><span class="p">,</span>
+    <span class="na">headers</span><span class="p">:</span> <span class="p">{</span>
+        <span class="dl">'</span><span class="s1">Authorization</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bearer &lt;YOUR_ADMIN_TOKEN&gt;</span><span class="dl">'</span><span class="p">,</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>Successful Response (200 OK):</p>
+</blockquote>
+
+<p><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">&quot;message&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Parking slot has been de-allocated successfully.&quot;</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='put-parking-slots-id-deallocate'>PUT <code>/parking/slots/:id/deallocate</code></h3>
+<ul>
+<li><strong>Description:</strong>  Removes the allocation of a parking slot from a flat, making it &quot;Free&quot;. This would be an action inside the table for an allocated slot.</li>
+</ul>
+<h3 id='path-parameters'>Path Parameters</h3>
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>id</code></td>
+<td style="text-align: left">UUID</td>
+<td style="text-align: left"><strong>Required.</strong> The ID of the parking slot to de-allocate.</td>
+</tr>
+</tbody></table></p>
+
+<p><em>Note: This endpoint does not require a request body.</em></p>
+
+<h3 id='response-5'>Response</h3>
+
+<table><thead>
+<tr>
+<th style="text-align: left">Parameter</th>
+<th style="text-align: left">Type</th>
+<th style="text-align: left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td style="text-align: left"><code>message</code></td>
+<td style="text-align: left">String</td>
+<td style="text-align: left">A confirmation that the parking slot was de-allocated successfully.</td>
+</tr>
+</tbody></table>
 
       </div>
       <div class="dark-box">
