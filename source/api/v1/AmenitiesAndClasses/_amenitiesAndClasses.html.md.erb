@@ -1,0 +1,392 @@
+#  Amenities And Classes
+
+This module handles the management of society amenities and the booking process for residents.
+
+**Authorization**: Most endpoints in this module require a Bearer Token with an Admin role. Resident-specific actions will be noted.
+
+## 1. Get Amenities Dashboard Summary
+
+> Successful Response (200 OK):
+
+```json
+{
+  "amenitiesBookingCount": 50,
+  "bookingApprovalsCount": 4,
+  "classSubscriptionsCount": 20,
+  "amenitiesVisitorsCount": 10
+}
+```
+
+### **GET** `/amenities/summary`
+
+- **Description:** Retrieves the high-level statistics for the amenities dashboard, used to populate the main stat cards.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+*Note: This endpoint is a `GET` request and does not require a request body or any query parameters.*
+
+### Response
+
+| Parameter                 | Type    | Description                                                              |
+| :------------------------ | :------ | :----------------------------------------------------------------------- |
+| `amenitiesBookingCount`   | Integer | The total number of amenities that have been booked.                     |
+| `bookingApprovalsCount`   | Integer | The number of bookings that are currently pending approval.              |
+| `classSubscriptionsCount` | Integer | The total number of active subscriptions to classes.                     |
+| `amenitiesVisitorsCount`  | Integer | The total count of visitors associated with amenity bookings.            |
+
+## 2. List Amenity Bookings
+
+> Example Request (with query parameters):
+
+```javascript
+{
+   // To get all bookings pending approval for "A Block"
+    fetch('/api/v1/amenity-bookings?status=Pending_Approval&search=A Block', {
+        method: 'GET',
+        headers: { 'Authorization': 'Bearer <YOUR_ADMIN_TOKEN>' }
+    });
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+   "data": [
+    {
+      "id": "booking_uuid_1",
+      "apartment": "A Block-A-1021",
+      "visitor": "Vidya Sagar",
+      "amenity": "Gym (Unit 1)",
+      "startTime": "2025-09-04T18:45:00Z",
+      "endTime": "2025-09-04T19:45:00Z",
+      "status": "Approved",
+      "payment": "Paid"
+    }
+  ],
+  "pagination": { ... }
+}
+```
+
+
+### **GET** `/amenity-bookings`
+
+- **Description:**  Retrieves a paginated list of all amenity bookings. This is the primary endpoint for the main table. The frontend uses the status query parameter to filter the data for different tabs (e.g., ?status=Pending_Approval for the "Booking Approvals" tab).
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Query Parameters
+
+| Parameter | Type   | In    | Description                                                                     |
+| --------- | ------ | ----- | ------------------------------------------------------------------------------- |
+| status    | String | Query | Optional. Filters bookings by status: Pending_Approval, Approved, Cancelled. |
+| search    | String | Query | Optional. Searches by apartment (flat number) or visitor (resident name).   |
+| startDate | String | Query | Optional. Filters for bookings on or after this date (e.g., 2025-09-01).      |
+| endDate   | String | Query | Optional. Filters for bookings on or before this date (e.g., 2025-09-30).       |
+
+### Successful Response (200 OK)
+
+| Parameter           | Type          | Description                                                                    |
+| :------------------ | :------------ | :----------------------------------------------------------------------------- |
+| `data`              | Array of objects | An array of amenity booking objects.                                           |
+| `data[].id`         | UUID          | The unique identifier for the booking.                                         |
+| `data[].apartment`  | String        | The apartment or flat number associated with the booking.                      |
+| `data[].visitor`    | String        | The name of the resident who made the booking.                                 |
+| `data[].amenity`    | String        | The name of the booked amenity.                                                |
+| `data[].startTime`  | DateTime      | The start date and time of the booking.                                        |
+| `data[].endTime`    | DateTime      | The end date and time of the booking.                                          |
+| `data[].status`     | String        | The current status of the booking (e.g., `Approved`).                          |
+| `data[].payment`    | String        | The payment status of the booking (e.g., `Paid`, `Unpaid`).                    |
+| `pagination`        | Object        | An object containing pagination details.                                       |
+| `pagination.total`  | Integer       | The total number of records matching the query.                                |
+| `pagination.page`   | Integer       | The current page number.                                                       |
+| `pagination.limit`  | Integer       | The number of items requested per page.                                        |
+| `pagination.totalPages` | Integer       | The total number of pages available.                                           |
+
+
+## 3. Add a New Amenity
+
+> Request Body:
+
+```json
+{
+  "name": "Clubhouse Party Hall",
+  "description": "A multi-purpose hall for events and gatherings.",
+  "capacity": 50,
+  "paymentRequired": true,
+  "bookingFee": 2500.00,
+  "bookingRules": "Bookings must be made 48 hours in advance. Cleaning charges extra.",
+  "imageUrls": [
+    "[https://storage.url/hall_image1.jpg](https://storage.url/hall_image1.jpg)",
+    "[https://storage.url/hall_image2.jpg](https://storage.url/hall_image2.jpg)"
+  ]
+}
+```
+
+> Successful Response (201 Created):
+
+```json
+{
+  "message": "Amenity created successfully.",
+  "amenityId": "new_amenity_uuid"
+}
+```
+
+### **POST** `/amenities`
+
+- **Description:**  Allows an admin to add a new amenity to the society's inventory. This corresponds to the "+ Add New Amenity" button.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Request Body
+
+| Parameter       | Type            | Description                                                                    |
+| :-------------- | :-------------- | :----------------------------------------------------------------------------- |
+| `name`          | String          | **Required.** The name of the amenity (e.g., `Clubhouse Party Hall`).          |
+| `description`   | String          | **Required.** A brief description of the amenity.                              |
+| `capacity`      | Integer         | **Required.** The maximum capacity of the amenity.                             |
+| `paymentRequired`| Boolean         | **Required.** Set to `true` if booking requires payment.                       |
+| `bookingFee`    | Number          | **Required.** The fee for booking the amenity. Can be `0` if no payment is required. |
+| `bookingRules`  | String          | **Required.** A text field for rules and regulations.                          |
+| `imageUrls`     | Array<String>   | **Required.** An array of publicly accessible URLs for images of the amenity.  |
+
+### Response
+
+| Parameter   | Type   | Description                                                        |
+| :---------- | :----- | :----------------------------------------------------------------- |
+| `message`   | String | A confirmation that the amenity was created successfully.          |
+| `amenityId` | UUID   | The unique identifier for the newly created amenity. 
+
+
+## 4. Get Single Booking Details
+
+> Successful Response (201 Created):
+
+```json
+{
+  "id": "booking_uuid_1",
+  "status": "Approved",
+  "startTime": "2025-09-04T18:45:00Z",
+  "endTime": "2025-09-04T19:45:00Z",
+  "createdAt": "2025-09-02T10:00:00Z",
+  "paymentStatus": "Paid",
+  "bookingFee": 500.00,
+  "amenity": {
+    "id": "amenity_uuid_gym",
+    "name": "Gym (Unit 1)",
+    "description": "Gymnasium with free weights and cardio equipment."
+  },
+  "bookedBy": {
+    "id": "user_uuid_vidya",
+    "fullName": "Vidya Sagar",
+    "phoneNumber": "9876543210"
+  },
+  "flat": {
+    "id": "flat_uuid_1021",
+    "flatNumber": "A-1021"
+  }
+}
+```
+
+### **GET** ` /amenity-bookings/:id`
+
+- **Description:**   Retrieves all details for a single booking. Used for the "View Details" action.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Path Parameters
+
+| Parameter | Type | Description                                          |
+| :-------- | :--- | :--------------------------------------------------- |
+| `id`      | UUID | **Required.** The unique identifier of the booking to fetch. |
+
+*Note: This endpoint is a `GET` request and does not require a request body.*
+
+### Response
+
+| Parameter             | Type   | Description                                                                    |
+| :-------------------- | :------- | :----------------------------------------------------------------------------- |
+| `id`                  | UUID     | The unique identifier for the booking.                                         |
+| `status`              | String   | The current status of the booking (e.g., `Approved`).                          |
+| `startTime`           | DateTime | The start date and time of the booking.                                        |
+| `endTime`             | DateTime | The end date and time of the booking.                                          |
+| `createdAt`           | DateTime | The timestamp when the booking was originally made.                            |
+| `paymentStatus`       | String   | The payment status of the booking (e.g., `Paid`, `Unpaid`).                    |
+| `bookingFee`          | Number   | The amount charged for the booking.                                            |
+| `amenity`             | Object   | An object containing details about the booked amenity.                         |
+| `amenity.id`          | UUID     | The unique identifier for the amenity.                                         |
+| `amenity.name`        | String   | The name of the amenity.                                                       |
+| `amenity.description` | String   | A brief description of the amenity.                                            |
+| `bookedBy`            | Object   | An object containing details of the user who made the booking.                 |
+| `bookedBy.id`         | UUID     | The unique identifier for the user.                                            |
+| `bookedBy.fullName`   | String   | The full name of the user.                                                     |
+| `bookedBy.phoneNumber`| String   | The contact phone number of the user.                                          |
+| `flat`                | Object   | An object containing details of the flat associated with the booking.          |
+| `flat.id`             | UUID     | The unique identifier for the flat.                                            |
+| `flat.flatNumber`     | String   | The number of the flat.                                                        |
+
+## 5.  Create a Booking (Resident Action)
+
+### **POST** `/amenity-bookings`
+
+- **Description:** Allows a resident to request a booking for an amenity.
+- **Authorization:**  Bearer Token required (Resident role only).
+
+
+
+## 6.  Update Booking Status (Admin Actions)
+
+###Approve a Booking
+
+### **PUT** `/amenity-bookings/:id/approve`
+
+- **Description:** Approves a pending booking request.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+**Successful Response (200 OK):** { "message": "Booking has been approved." }
+
+
+
+### Reject/Cancel a Booking
+
+### **PUT** `/amenity-bookings/:id/reject`
+
+- **Description:** Rejects or cancels a pending booking request.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+**Successful Response (200 OK):** { "message": "Booking has been rejected." }
+
+
+
+### Mark as Completed
+
+### **PUT** `/amenity-bookings/:id/complete`
+
+- **Description:** Marks a booking as completed after the time has passed.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+**Successful Response (200 OK):** { "message": "Booking marked as completed." }
+
+
+## 7. Edit & Reschedule a Booking (Admin Action)
+
+> Request Boduy:
+
+```json
+{
+  "startTime": "2025-10-11T09:00:00Z",
+  "endTime": "2025-10-11T10:00:00Z"
+}
+```
+
+> Successful Response (200 OK): 
+
+```json
+{
+  "message": "Booking has been rescheduled."
+}
+```
+
+### **PUT** `/amenity-bookings/:id`
+
+- **Description:** Allows an admin to edit details of a booking, such as rescheduling the time.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Path Parameters
+
+| Parameter | Type | Description                                             |
+| :-------- | :--- | :------------------------------------------------------ |
+| `id`      | UUID | **Required.** The unique identifier of the booking to reschedule. |
+
+### Request Body
+
+| Parameter   | Type     | Description                                                          |
+| :---------- | :------- | :------------------------------------------------------------------- |
+| `startTime` | DateTime | **Required.** The new start date and time for the booking in ISO format. |
+| `endTime`   | DateTime | **Required.** The new end date and time for the booking in ISO format.   |
+
+
+### Response
+
+| Parameter | Type   | Description                                            |
+| :-------- | :----- | :----------------------------------------------------- |
+| `message` | String | A confirmation that the booking has been rescheduled.  |
+
+
+## 8. Delete a Booking (Admin Action)
+
+> Successful Response (200 OK): 
+
+```json
+{
+  "message": "Booking has been Deleted Successfully."
+}
+```
+
+### **DELETE** `/amenity-bookings/:id`
+
+- **Description:** Permanently deletes a booking record. This is a destructive action.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Request Headers
+
+| Header          | Type   | Description                                                                          |
+| :-------------- | :----- | :----------------------------------------------------------------------------------- |
+| `Authorization` | String | **Required.** The JWT token of an `Admin` user, prefixed with "Bearer " (e.g., `Bearer <token>`). |
+
+### Path Parameters
+
+| Parameter | Type | Description                                           |
+| :-------- | :--- | :---------------------------------------------------- |
+| `id`      | UUID | **Required.** The unique identifier of the booking to delete. |
+
+*Note: This endpoint does not require a request body.*
+
+
+### Successful Response (204 No Content)
+
+A successful request will return an empty response body with a `204` status code, indicating that the booking has been deleted.
+
+
+## 9.  Manage Payment Status (Admin Action)
+
+> Request Body:
+
+```json
+{
+  "status": "Paid" // e.g., "Paid", "Waived", "Refunded"
+}
+```
+
+> Successful Response (200 OK):
+
+```json
+{
+  "message": "Payment status updated successfully."
+}
+```
+
+### **PUT** `/amenity-bookings/:id/payment`
+
+- **Description:** Allows an admin to update the payment status for a booking.
+- **Authorization:**  Bearer Token required (Admin role only).
+
+### Request Headers
+
+| Header          | Type   | Description                                                                          |
+| :-------------- | :----- | :----------------------------------------------------------------------------------- |
+| `Authorization` | String | **Required.** The JWT token of an `Admin` user, prefixed with "Bearer " (e.g., `Bearer <token>`). |
+
+### Path Parameters
+
+| Parameter | Type | Description                                                    |
+| :-------- | :--- | :----------------------------------------------------------- |
+| `id`      | UUID | **Required.** The unique identifier of the booking to update.  |
+
+### Request Body
+
+| Parameter | Type   | Description                                                                     |
+| :-------- | :----- | :------------------------------------------------------------------------------ |
+| `status`  | String | **Required.** The new payment status (e.g., `Paid`, `Waived`, `Refunded`).      |
+
+### Response
+
+| Parameter | Type   | Description                                                        |
+| :-------- | :----- | :----------------------------------------------------------------- |
+| `message` | String | A confirmation that the payment status was updated successfully.   |
