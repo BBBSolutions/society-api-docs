@@ -128,7 +128,7 @@ To stop the background middleman process in the VM, find and kill it with `ps`/`
   gem install bundler -v 2.4.22 --no-document
   bundle config build.nokogiri --use-system-libraries
   bundle install
-
+  
 - Run server (dev):
 
   bundle exec middleman server

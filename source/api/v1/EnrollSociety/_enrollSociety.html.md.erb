@@ -11,7 +11,7 @@
   "mobile": "9876543210",
   "societyName": "Prestige Lakeside Habitation",
   "city": "Bhopal",
-  "Reason": "Interested for Demo" // or existing user
+  "reason": "Interested for Demo" // or existing user
 }
 ```
 
@@ -38,7 +38,7 @@ Manages when the customer comes to our website for enrolling their society or fo
 | `mobile`      | String | **Required.** The contact mobile number of the person.        |
 | `societyName` | String | **Required.** The name of the society.                        |
 | `city`        | String | **Required.** The city where the society is located.          |
-| `Reason`      | String | **Required.** The purpose of the inquiry (e.g., "Interested for Demo"). |
+| `reason`      | String | **Required.** The purpose of the inquiry (e.g., "Interested for Demo"). |
 
 
 ### Response
@@ -50,48 +50,40 @@ Manages when the customer comes to our website for enrolling their society or fo
 
 ## 2.  Enroll a New Society (Internal API)
 
-> Example Request:
+> Request Body:
 
-```javascript
-fetch('/api/v1/enrollment', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    societyName: "Prestige Lakeside Habitation",
-    registrationNumber: "KA-BNG-12345",
-    address: "Whitefield Main Road",
-    adminName: "Aditya Mishra",
-    adminEmail": "aditya.m@example.com",
-    adminPhone": "9876543210",
-    password": "a_very_strong_password"
-  })
-});
+```json
+{
+  "societyName": "Sunshine Apartments",
+    "registrationNumber": "MH-PUN-1001",
+    "address": "123 Kothrud, Pune",
+    "adminName": "Mr. Rohan Sharma",
+    "adminEmail": "rohan.sharma@sunshine.com",
+    "adminPhone": "9988776655",
+    "password": "new_admin_password_123"
+}
 ```
 
 > Successful Response (200 OK):
 
 ```json
 {
-  "message": "Society enrolled successfully!",
-  "societyId": "a-new-society-uuid",
-  "adminId": "a-new-admin-user-uuid"
-}
-```
-> Error Response (409 Conflict - User already exists):
-
-```json
-{
-  "message": "Society enrolled successfully!",
-  "societyId": "a-new-society-uuid",
-  "adminId": "a-new-admin-user-uuid"
+  "success": true,
+  "statusCode": 201,
+  "data": {
+      "societyId": "a-new-society-uuid",
+      "adminId": "a-new-admin-user-uuid",
+      "message": "Society and Admin account created successfully."
+  },
+  "message": "Enrollment successful."
 }
 ```
 
-This is the API for the form your team will use to onboard a new society after a sales lead is converted.
+This is the API for your internal team to onboard a new society after a sale is converted. It creates the society and its primary admin user.
 
 ### **POST** `/enrollment`
 
-- **Description:** Registers a new society and creates the primary admin account. This endpoint should be protected and only accessible by your internal team.
+- **Description:** Registers a new society and creates the primary new admin account. This endpoint should be protected and only accessible by your internal team and internal admin can only create new society and new admin account
 - **Authorization:**  Internal Admin Token required.
 
 
